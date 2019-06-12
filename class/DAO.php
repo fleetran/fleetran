@@ -1,5 +1,5 @@
 ﻿<?php
-//prueba2
+//prueba3
 	require ('Usuario.php');
 	require ('Licencia.php');	
 class DAO{
