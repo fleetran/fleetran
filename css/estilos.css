@@ -1,0 +1,67 @@
+
+body {
+    color: rgba(0, 0, 0, 0.5);
+    line-height: 1.5;
+    padding: 0;
+}
+
+/*tools*/
+.centext {text-align: center;}
+.cenblock {margin: 0 auto;}
+.none {display:none;}
+.prel {position: relative;}
+.pabs {position: absolute;}
+.pfix {position: fixed;}
+
+/*Global*/
+/*Responsive box*/
+.box {
+ /* max-width: 1100px; */    
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+.box > h2 {
+    color: #fff;
+    position: relative;
+    margin: 0 0 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+.box > h2:not(:first-child) {
+    padding-top: 3rem;
+}
+
+.box > p {
+    color: rgba(255,255,255,0.6);
+    display: block;
+    font-weight: 400;
+    font-size: 1.3rem;
+}
+.box > p > a {
+    color: #00BCD4;
+    font-weight: 500;
+    text-decoration: none;
+}
+.box > p > strong {
+    color: #fff;
+}
+.box > p > a:hover {
+    text-decoration: none;
+}
+
+
+
+body {
+  background: #36486e; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #36486e, #6B7996);
+  background: -moz-linear-gradient(right, #36486e, #6B7996);
+  background: -o-linear-gradient(right, #36486e, #6B7996);
+  background: linear-gradient(to left, #36486e, #6B7996);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}
+
+
+.main {
+    padding: 2.3rem 0;
+}
