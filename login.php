@@ -1,6 +1,6 @@
 <!doctype html>
 <?php
-//pruebaa
+//pruebas
 session_start();
 if(isset($_SESSION['USUARIO'])){
 	header("location:portal.php");	
