@@ -34,7 +34,7 @@
 			<li class="luxbar-item"><a href="planes.php">Planes</a></li>
 			<li class="luxbar-item"><a href="quienes-somos.php">¿Quienes somos?</a></li>
 			<li class="luxbar-item"><a href="contacto.php">Contacto</a></li>
-			<li class="luxbar-item sv"><a href="login.php">Acceso Clientes</a></li>
+			<li class="luxbar-item sv"><a href="login2.php">Acceso Clientes</a></li>
         </ul>
     </div>
 </div>
@@ -97,7 +97,7 @@
 					<a href="planes.php">Planes</a>					·
 					<a href="quienes-somos.php">¿Quienes somos?</a>					·
 					<a href="contacto.php">Contacto</a>					·
-					<a href="login.php">Acceder</a>
+					<a href="login2.php">Acceder</a>
 				</p>
 
 				<p class="footer-company-name">Fleetran &copy; <?php echo date("Y");?></p>

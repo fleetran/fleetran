@@ -18,12 +18,12 @@
 				$_SESSION["USUARIO"] = $u;											
 				if($licencia==1){
 					$_SESSION["LICENCIA"] = 1;
-					header("location:../portal.php");	
+					header("location:../portal2.php");	
 				}else{
 					header("location:../compra-plan.php");	
 				}		
 			}else{
-				header('Location:../login.php?res=0');		
+				header('Location:../login2.php?res=0');		
 		}		
 	}
 	
