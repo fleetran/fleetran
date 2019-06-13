@@ -23,7 +23,7 @@
 
   <div class="container">
     <div class="card card-login mx-auto mt-5">
-      <div class="card-header">Ingreso a Fleetran</div>
+      <br><center><div class="TLOGO"><a href="index.php"><img src="img/logomin.png"></a></div></center>
       <div class="card-body">
         <form>
           <div class="form-group">
@@ -50,8 +50,8 @@
            
         </form>
         <div class="text-center">
-          <a class="d-block small mt-3" href="register.html">Registrar un nuevo usuario</a>
-          <a class="d-block small" href="forgot-password.html">¿Olvidaste tu contraseña?</a>
+          <a class="d-block small mt-3" href="registro.php">Registrar un nuevo usuario</a>
+          <a class="d-block small" href="recuperar.php">¿Olvidaste tu contraseña?</a>
         </div>
       </div>
     </div>
