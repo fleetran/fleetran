@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <?php
+//prueba
 			require('class/DAO.php');
 			session_start();
 			if(isset($_SESSION['USUARIO']) and isset($_SESSION['LICENCIA'])){
