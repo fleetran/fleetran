@@ -27,34 +27,22 @@
 		}		
 	}
 	
-	if(isset($_REQUEST['btn_reg'])){
+	if(isset($_REQUEST['btn_reg1'])){
+		$_SESSION['actividad'] = $_REQUEST['txt_actividad'];
+		$_SESSION['flota'] = $_REQUEST['txt_flota'];
+		header('Location:../registro2.php');
+	}
+	
+	if(isset($_REQUEST['btn_reg2'])){
+		$actividad = $_SESSION['actividad'];
+		$flota = $_SESSION['flota'];
 		$ema = $_POST['txt_email'];	
-		$nom = $_POST['txt_nombre'];	
-		$ape = $_POST['txt_apellido'];
-		$rut = $_POST['txt_rut'];	
-		$emp = $_POST['txt_empresa'];
+		$nom = $_POST['txt_nombre'];
 		$pass1 = $_POST['txt_pass1'];	
 		$pass2 = $_POST['txt_pass2'];
-		$error = 0;
-		
-		if($pass1!=$pass2){
-			$error++;
-			header('Location:../login.php?res=10');					
-		}
-		if(strlen($pass1)<5 or strlen($pass2)<5){
-			$error++;
-			header('Location:../login.php?res=11');					
-		}
 		if($d->existeEmail($ema)==1){
-			$error++;
 			header('Location:../login.php?res=12');					
-		}
-		if($d->existeRut($rut)==1){
-			$error++;
-			header('Location:../login.php?res=13');					
-		}
-		
-		if($error==0){
+		}else{
 			$u = new Usuario($ema,$nom,$ape,$rut,$emp,md5($pass1));
 			if($d->registrarUsuario($u)==1){
 				header('Location:../login.php?res=15');					
@@ -62,6 +50,9 @@
 				header('Location:../login.php?res=14');					
 			}	
 		}
+		
+			
+		}*/
 	}
 	
 	/*if(isset($_REQUEST['btn_compra'])){

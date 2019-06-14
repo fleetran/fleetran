@@ -50,7 +50,7 @@
            
         </form>
         <div class="text-center">
-          <a class="d-block small mt-3" href="registro.php">Registrar un nuevo usuario</a>
+          <a class="d-block small mt-3" href="registro.php">Registrarse</a>
           <a class="d-block small" href="recuperar.php">¿Olvidaste tu contraseña?</a>
         </div>
       </div>

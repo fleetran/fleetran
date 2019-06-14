@@ -21,7 +21,7 @@
 
 <body class="bg-dark">
 
-  <div <div class="form-row">>
+  <div <div class="form-row">
     <div class="card card-register mx-auto mt-5">
       <div class="card-header" style="text-align:center;">
 	  <center><div class="TLOGO"><a href="index.php"><img src="img/logomin.png"></a></div></center>
@@ -41,7 +41,7 @@
 <div class="container">
   <div>
     <div>
-      <select class="form-control" required>
+      <select class="form-control" required name="txt_actividad">
         <option value="0" disabled selected>Seleccione:</option>
 		<option value="1">Camiones +2 ejes</option>
         <option value="2">Vehículos de construcción</option>
@@ -67,7 +67,7 @@
 <div class="container">
   <div>
     <div>
-      <select class="form-control">
+      <select class="form-control" name="txt_flota">
         <option value="0" selected>Seleccione:</option>
 		<option value="1">1 a 5 vehículos</option>
         <option value="2">6 a 20 vehiculos</option>
@@ -81,10 +81,10 @@
 </div>
 
             
-          <a class="btn btn-primary btn-block" href="login.html">Continuar</a>
+          <button class="btn btn-primary btn-block" name="btn_reg1" formaction="class/procesar.php">Continuar</button>
         </form>
         <div class="text-center">
-          <a class="d-block small mt-3" href="login2.html">Iniciar sesión</a>
+		  <a class="d-block small mt-3" href="login2.php">Iniciar sesión</a>
         </div>
       </div>
     </div>
