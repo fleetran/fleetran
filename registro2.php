@@ -51,13 +51,13 @@
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="required">
+                  <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="required" name="txt_pass1">
                   <label for="inputPassword">Contraseña</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="password" id="confirmPassword" class="form-control" placeholder="Confirme contraseña" required="required">
+                  <input type="password" id="confirmPassword" class="form-control" placeholder="Confirme contraseña" required="required" name="txt_pass2">
                   <label for="confirmPassword">Confirme contraseña</label>
                 </div>
               </div>

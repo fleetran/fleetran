@@ -36,23 +36,24 @@
 	if(isset($_REQUEST['btn_reg2'])){
 		$actividad = $_SESSION['actividad'];
 		$flota = $_SESSION['flota'];
-		$ema = $_POST['txt_email'];	
-		$nom = $_POST['txt_nombre'];
-		$pass1 = $_POST['txt_pass1'];	
-		$pass2 = $_POST['txt_pass2'];
+		$rut = $_REQUEST['txt_rut'];
+		$ema = $_REQUEST['txt_email'];	
+		$nom = $_REQUEST['txt_nombre'];
+		$pass1 = $_REQUEST['txt_pass1'];	
+		$pass2 = $_REQUEST['txt_pass2'];
 		if($d->existeEmail($ema)==1){
-			header('Location:../login.php?res=12');					
+			header('Location:../login2.php?res=12');					
 		}else{
-			$u = new Usuario($ema,$nom,$ape,$rut,$emp,md5($pass1));
+			$u = new Usuario($rut,$nom,$ema,$actividad,$flota,md5($pass1));
 			if($d->registrarUsuario($u)==1){
-				header('Location:../login.php?res=15');					
+				header('Location:../login2.php?res=15');					
 			}else{
-				header('Location:../login.php?res=14');					
+				header('Location:../login2.php?res=14');					
 			}	
 		}
 		
-			
-		}*/
+	
+		
 	}
 	
 	/*if(isset($_REQUEST['btn_compra'])){

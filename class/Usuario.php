@@ -1,57 +1,54 @@
 ﻿<?php
 class Usuario{
-	private $email;
-	private $nombre;
-	private $apellido;
 	private $rut;
-	private $emresa;
+	private $nombre;
+	private $email;
+	private $actividad;
+	private $flota;
 	private $password;
 	
 
-	public function Usuario($email,$nombre,$apellido,$rut,$empresa,$password){
-		$this->email = $email;
-		$this->nombre = $nombre;
-		$this->apellido = $apellido;
+	public function Usuario($rut,$nombre,$email,$actividad,$flota,$password){
 		$this->rut = $rut;
-		$this->empresa = $empresa;			
+		$this->nombre = $nombre;
+		$this->email = $email;
+		$this->actividad = $actividad;
+		$this->flota = $flota;			
 		$this->password = $password;						
 	}
 		
-	public function getEmail(){
-		return $this->email;
+	public function getRut(){
+		return $this->rut;
 	}
 	public function getNombre(){
 		return $this->nombre;
 	}
-	public function getApellido(){
-		return $this->apellido;
+	public function getEmail(){
+		return $this->email;
 	}
-	public function getRut(){
-		return $this->rut;
+	public function getActividad(){
+		return $this->actividad;
 	}
-	public function getEmpresa(){
-		return $this->empresa;
+	public function getFlota(){
+		return $this->flota;
 	}	
 	public function getPassword(){
 		return $this->password;
 	}
-	
-	public function setEmail($ema){
-		$this->email = $ema;
-	}
-	
-	public function setNombre($nombre){
-		$this->nombre = $nombre;
-	}
-	
-	public function setApellido($apellido){
-		$this->apellido = $apellido;
-	}
 	public function setRut($rut){
 		$this->rut = $rut;
 	}
-	public function setEmpresa($empresa){
-		$this->empresa = $empresa;
+	public function setNombre($nombre){
+		$this->nombre = $nombre;
+	}
+	public function setEmail($ema){
+		$this->email = $ema;
+	}
+	public function setActividad($actividad){
+		$this->actividad = $actividad;
+	}
+	public function setflota($flota){
+		$this->flota = $flota;
 	}
 	public function setPassword($password){
 		$this->password = $password;

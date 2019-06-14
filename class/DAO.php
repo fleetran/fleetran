@@ -57,7 +57,7 @@ class DAO{
 			return 0;
 		}
 	}
-public function comprobarLicencia($email){
+	public function comprobarLicencia($email){
 		$this->conexion();
 		$sql = "select * from licencias where email_user='$email' and diasrestantes_licencia>0";
 		$st = $this->mi->query($sql);
@@ -92,13 +92,13 @@ public function comprobarLicencia($email){
 	
 	public function registrarUsuario(Usuario $u){
 			$this->conexion();
-			$ema = $u->getEmail();
-			$nom = $u->getNombre();
-			$ape = $u->getApellido();
 			$rut = $u->getRut();
-			$emp = $u->getEmpresa();
+			$nom = $u->getNombre();
+			$ema = $u->getEmail();
+			$act = $u->getActividad();
+			$flo = $u->getFlota();
 			$pas = $u->getPassword();
-			$sql = "insert into usuario values ('$ema','$nom','$ape','$rut','$emp','$pas');";
+			$sql = "insert into usuario values ('$rut','$nom','$ema','$act','$flo','$pas');";
 			$st = $this->mi->query($sql);
 			if($this->mi->affected_rows>0){
 				return 1;
