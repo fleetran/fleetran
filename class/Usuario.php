@@ -3,17 +3,15 @@ class Usuario{
 	private $rut;
 	private $nombre;
 	private $email;
-	private $actividad;
-	private $flota;
+	private $Plan;
 	private $password;
 	
 
-	public function Usuario($rut,$nombre,$email,$actividad,$flota,$password){
+	public function Usuario($rut,$nombre,$email,$Plan,$password){
 		$this->rut = $rut;
 		$this->nombre = $nombre;
 		$this->email = $email;
-		$this->actividad = $actividad;
-		$this->flota = $flota;			
+		$this->Plan = $Plan;
 		$this->password = $password;						
 	}
 		
@@ -26,12 +24,9 @@ class Usuario{
 	public function getEmail(){
 		return $this->email;
 	}
-	public function getActividad(){
-		return $this->actividad;
+	public function getPlan(){
+		return $this->Plan;
 	}
-	public function getFlota(){
-		return $this->flota;
-	}	
 	public function getPassword(){
 		return $this->password;
 	}
@@ -41,14 +36,11 @@ class Usuario{
 	public function setNombre($nombre){
 		$this->nombre = $nombre;
 	}
-	public function setEmail($ema){
-		$this->email = $ema;
+	public function setEmail($email){
+		$this->email = $email;
 	}
-	public function setActividad($actividad){
-		$this->actividad = $actividad;
-	}
-	public function setflota($flota){
-		$this->flota = $flota;
+	public function setPlan($Plan){
+		$this->Plan = $Plan;
 	}
 	public function setPassword($password){
 		$this->password = $password;

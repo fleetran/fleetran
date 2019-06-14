@@ -48,8 +48,8 @@
 		<option value="3">Maquiarias Agrícolas</option>	
 		<option value="4">Furgones - Camiones 3/4</option>	
 		<option value="5">Taxis - Colectivos - Radiotaxis</option>
-		<option value="7">Rent-a-car</option>
-		<option value="8">Motos</option>
+		<option value="6">Rent-a-car</option>
+		<option value="7">Motos</option>
       </select>
     </div>
   </div>

@@ -1,5 +1,6 @@
 ﻿<?php
 	require ('Usuario.php');
+	require ('Plan.php');
 	require ('Licencia.php');	
 class DAO{
 	private $mi;
@@ -23,11 +24,27 @@ class DAO{
 			$rut = $rs[0];
 			$nombre = $rs[1];
 			$email = $rs[2];
-			$act = $rs[3];
-			$flo = $rs[4];
-			$pass = $rs[5];	
-    		$u = new Usuario($rut,$nombre,$email,$act,$flo,$pass);				
+			$plan = $rs[3];
+			$pass = $rs[4];	
+    		$u = new Usuario($rut,$nombre,$email,$plan,$pass);				
 			return $u;
+		}else{
+			$this->desconexion();
+			return 0;
+		}
+	}
+	
+	public function detallePlan($id){
+		$this->conexion();
+		$sql = "select * from plan where id_plan='$id';";
+		$st = $this->mi->query($sql);
+		if($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$id = $rs[0];
+			$actividad = $rs[1];
+			$flota = $rs[2];
+			$monto = $rs[3];
+    		$p = new Plan($id,$actividad,$flota,$monto);				
+			return $p;
 		}else{
 			$this->desconexion();
 			return 0;
@@ -59,7 +76,7 @@ class DAO{
 	}
 	public function comprobarLicencia($rut){
 		$this->conexion();
-		$sql = "select * from licencias where rut_user='$rut' and diasrestantes_licencia>0";
+		$sql = "select * from licencias where rut_user='$rut'";
 		$st = $this->mi->query($sql);
 		if($rs = $st->fetch_array(MYSQLI_BOTH)){
 			$this->desconexion();				
@@ -95,10 +112,9 @@ class DAO{
 			$rut = $u->getRut();
 			$nom = $u->getNombre();
 			$ema = $u->getEmail();
-			$act = $u->getActividad();
-			$flo = $u->getFlota();
+			$plan = $u->getPlan();
 			$pas = $u->getPassword();
-			$sql = "insert into usuario values ('$rut','$nom','$ema','$act','$flo','$pas');";
+			$sql = "insert into usuario values ('$rut','$nom','$ema','$plan','$pas');";
 			$st = $this->mi->query($sql);
 			if($this->mi->affected_rows>0){
 				return 1;
