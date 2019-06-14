@@ -28,7 +28,7 @@
 			session_start();
 			if(isset($_SESSION['USUARIO']) and !isset($_SESSION['LICENCIA'])){
 				$u = $_SESSION['USUARIO'];
-				$nombre = $u->getEmpresa();
+				$nombre = $u->getNombre();
 				$nombre = strtoupper($nombre);
 				echo $nombre;
 			}else{

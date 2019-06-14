@@ -20,13 +20,13 @@ class DAO{
 		$sql = "select * from usuario where email_user='$email' and password_user='$pass';";
 		$st = $this->mi->query($sql);
 		if($rs = $st->fetch_array(MYSQLI_BOTH)){
-			$email = $rs[0];
+			$rut = $rs[0];
 			$nombre = $rs[1];
-			$apellido = $rs[2];
-			$rut = $rs[3];
-			$empresa = $rs[4];
-			$password = $rs[5];	
-    		$u = new Usuario($email,$nombre,$apellido,$rut,$empresa,$password);				
+			$email = $rs[2];
+			$act = $rs[3];
+			$flo = $rs[4];
+			$pass = $rs[5];	
+    		$u = new Usuario($rut,$nombre,$email,$act,$flo,$pass);				
 			return $u;
 		}else{
 			$this->desconexion();
@@ -57,9 +57,9 @@ class DAO{
 			return 0;
 		}
 	}
-	public function comprobarLicencia($email){
+	public function comprobarLicencia($rut){
 		$this->conexion();
-		$sql = "select * from licencias where email_user='$email' and diasrestantes_licencia>0";
+		$sql = "select * from licencias where rut_user='$rut' and diasrestantes_licencia>0";
 		$st = $this->mi->query($sql);
 		if($rs = $st->fetch_array(MYSQLI_BOTH)){
 			$this->desconexion();				
@@ -70,9 +70,9 @@ class DAO{
 		}
 }
 
-	public function listarTransacciones($email){
+	public function listarTransacciones($rut){
 		$this->conexion();
-		$sql = "SELECT * from licencias WHERE email_user='$email'";
+		$sql = "SELECT * from licencias WHERE rut_user='$rut'";
 		$lista = array();
 		$st = $this->mi->query($sql);
 		while($rs = $st->fetch_array(MYSQLI_BOTH)){

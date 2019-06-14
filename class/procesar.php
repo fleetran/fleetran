@@ -11,16 +11,17 @@
 	$d = new DAO();
 	if(isset($_REQUEST['btn_ing'])){
 			$email = $_REQUEST['txt_email'];
-			$pass = $_REQUEST['txt_pass'];
-			$u = $d->comprobarUsuario($email,md5($pass));
-			$licencia = $d->comprobarLicencia($email);
+			$pass = md5($_REQUEST['txt_pass']);
+			$u = $d->comprobarUsuario($email,$pass);
 			if($u!=null){
 				$_SESSION["USUARIO"] = $u;											
+				header("location:../portal2.php");	
+				$licencia = $d->comprobarLicencia($u->getRut());
 				if($licencia==1){
 					$_SESSION["LICENCIA"] = 1;
-					header("location:../portal2.php");	
+					
 				}else{
-					header("location:../compra-plan.php");	
+					header("location:../compra-plan2.php");	
 				}		
 			}else{
 				header('Location:../login2.php?res=0');		
@@ -39,12 +40,12 @@
 		$rut = $_REQUEST['txt_rut'];
 		$ema = $_REQUEST['txt_email'];	
 		$nom = $_REQUEST['txt_nombre'];
-		$pass1 = $_REQUEST['txt_pass1'];	
-		$pass2 = $_REQUEST['txt_pass2'];
+		$pass1 = md5($_REQUEST['txt_pass1']);	
+		$pass2 = md5($_REQUEST['txt_pass2']);
 		if($d->existeEmail($ema)==1){
 			header('Location:../login2.php?res=12');					
 		}else{
-			$u = new Usuario($rut,$nom,$ema,$actividad,$flota,md5($pass1));
+			$u = new Usuario($rut,$nom,$ema,$actividad,$flota,$pass1);
 			if($d->registrarUsuario($u)==1){
 				header('Location:../login2.php?res=15');					
 			}else{
