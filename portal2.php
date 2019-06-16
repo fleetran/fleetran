@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php 
-session_start();
-if(!isset($_SESSION['LICENCIA'])){
-	header("location:class/procesar.php");	
-}
-?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,8 +23,23 @@ if(!isset($_SESSION['LICENCIA'])){
 <body id="page-top">
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+<?php 
+require('class/Usuario.php');
+require('class/Plan.php');
+session_start();
 
-    <a class="navbar-brand mr-1" href="index.html">Fleetran</a>
+if(!isset($_SESSION['LICENCIA'])){
+	header("location:class/procesar.php");	
+}
+if(isset($_SESSION['USUARIO'])){
+	$p = $_SESSION["planusuario"];
+	$u = $_SESSION['USUARIO'];
+	$nombre = $u->getNombre();
+	$actividad = $p->getActividad();
+	$flota = $p->getFlota();
+}			
+?>
+    <a class="navbar-brand mr-1" href="index.html"><?php echo strtoupper($nombre);?></a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -39,11 +48,7 @@ if(!isset($_SESSION['LICENCIA'])){
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
-            <i class="fas fa-search"></i>
-          </button>
+        
         </div>
       </div>
     </form>
@@ -101,28 +106,34 @@ if(!isset($_SESSION['LICENCIA'])){
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
+          <span>Mantenedores</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="login.html">Login</a>
-          <a class="dropdown-item" href="register.html">Register</a>
-          <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+          <h6 class="dropdown-header">Entregas</h6>
+		  <a class="dropdown-item" href="portal/registrar-entrega.php">Registrar entrega</a>
+		  <a class="dropdown-item" href="portal/modificar-entrega.php">Modificar entrega</a>
+		  <h6 class="dropdown-header">Gestión de vehículos</h6>
+          <a class="dropdown-item" href="portal/nuevo-vehiculo.php">Nuevo vehículo</a>
+		  <a class="dropdown-item" href="portal/eliminar-vehiculo.php">Eliminar vehículo</a>
+          <a class="dropdown-item" href="">Registrar mantencion</a>
           <div class="dropdown-divider"></div>
-          <h6 class="dropdown-header">Other Pages:</h6>
-          <a class="dropdown-item" href="404.html">404 Page</a>
-          <a class="dropdown-item" href="blank.html">Blank Page</a>
+          <h6 class="dropdown-header">Gestión de conductores</h6>
+          <a class="dropdown-item" href="portal/registrar-conductor.php">Registrar conductor</a>
+          <a class="dropdown-item" href="portal/suspender-conductor.php">Suspender conductor</a>
+		  <h6 class="dropdown-header">Notas</h6>
+		  <a class="dropdown-item" href="portal/antecedentes.php">Registrar acontecimiento</a>
+		  <a class="dropdown-item" href="portal/antecedentes.php">Registrar fecha importante</a>
         </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="charts.html">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
+          <span>Estadísticas</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
+          <span>Histórico</span></a>
       </li>
     </ul>
 
