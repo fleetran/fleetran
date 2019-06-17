@@ -1,11 +1,4 @@
 ﻿<?php
-/*
-		ERROR 0 : Email o clave son incorrectos
-		ERROR 10 : Las contraseñas ingresadas no coinciden
-		ERROR 11 : Las contraseñas deben contener un mínimo de 6 carácteres		
-		ERROR 12 : El email ingresado ya está asociado a una cuenta.
-		ERROR 13 : El rut ingresado ya está asociado a una cuenta.
-*/
 	session_start();
 	require('DAO.php');
 	$d = new DAO();
@@ -56,34 +49,29 @@
 				header('Location:../login2.php?res=14');					
 			}	
 		}
-		
-	
-		
 	}
-	
-	/*if(isset($_REQUEST['btn_compra'])){
-		$res = $d->registrarCompra($u)==1){
-		if($error==0){
-			$u = new Usuario($ema,$nom,$ape,$rut,$emp,md5($pass1));
-			if($d->registrarUsuario($u)==1){
-				header('Location:../login.php?res=15');					
+		
+	if(isset($_REQUEST['btn_new_conductor'])){
+		$rut = $_REQUEST['txt_rut'];
+		$nom1 = $_REQUEST['txt_nom1'];	
+		$nom2 = $_REQUEST['txt_nom2'];
+		$ape1 = $_REQUEST['txt_ape1'];	
+		$ape2 = $_REQUEST['txt_ape2'];
+		$dir = $_REQUEST['txt_dir'];	
+		$num = $_REQUEST['txt_num'];
+		if($d->existeConductor($rut)==1){
+			header('Location:../portal/registrar-conductor.php?res=0');					
+		}else{
+			$c = new Conductor($rut,$nom1,$nom2,$ape1,$ape2,$dir,$num);
+			if($d->registrarConductor($c)==1){
+				header('Location:../portal/registrar-conductor.php?res=1');					
 			}else{
-				header('Location:../login.php?res=14');					
+				header('Location:../portal/registrar-conductor.php?res=22');					
 			}	
 		}
 	}
+		
 	
-	*/
-/*if(isset($_SESSION['USUARIO'])){
-	if(isset($_SESSION['LICENCIA'])){
-		header("location:../portal2.php");	
-	}else{
-		header("location:../compra-plan2.php");	
-	}
-}else{
-	header("location:../login2.php");	
-}
-*/
-
-
+	
+	
 ?>

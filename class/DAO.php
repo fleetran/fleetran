@@ -1,5 +1,6 @@
 ﻿<?php
 	require ('Usuario.php');
+	require ('Conductor.php');
 	require ('Plan.php');
 	require ('Licencia.php');	
 class DAO{
@@ -123,7 +124,37 @@ class DAO{
 			}
 			$this->desconexion();
 	}
-
+	public function existeConductor($rut){
+			$this->conexion();
+		$sql = "select * from conductor where rut_conductor='$rut'";
+		$st = $this->mi->query($sql);
+		if($rs = $st->fetch_array(MYSQLI_BOTH)){
+			return 1;
+		}else{
+			$this->desconexion();
+			return 0;
+		}
+	}
+	
+	public function registrarConductor($c){
+			$this->conexion();
+			$rut = $c->getRut();
+			$nom1 = $c->getNombre1();
+			$nom2 = $c->getNombre2();
+			$ape1 = $c->getApellido1();
+			$ape2 = $c->getApellido2();
+			$dir = $c->getDireccion();
+			$num = $c->getNumero();
+			header('Location:../portal/prueba.php?rut='.$rut.'&nom1='.$nom1.'&nom2='.$nom2.'&ape1='.$ape1.'&ape2='.$ape2.'&dir='.$dir.'&num='.$num);					
+			/*$sql = "insert into conductor values ('$rut','$nom1','$nom2','$ape1','$ape2','$dir','$num');";
+			$st = $this->mi->query($sql);
+			if($this->mi->affected_rows>0){
+				return 1;
+			}else{
+				return 0;
+			}
+			$this->desconexion();*/
+	}
 	
 }
 

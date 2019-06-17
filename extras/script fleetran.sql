@@ -59,3 +59,32 @@ select * from usuario;
 select * from plan;
 drop database fleetran;
 select rut_user,nombre_user,email_user,plan.actividad_plan,plan.flota_plan,password_user from usuario,plan where usuario.id_plan=plan.id_plan;
+
+
+create table conductor(
+rut_conductor varchar(12) primary key,
+nombre1_conductor varchar(30),
+nombre2_conductor varchar(30),
+apellido1_conductor varchar(30),
+apellido2_conductor varchar(30),
+direccion_conductor varchar(50),
+numero_conductor varchar(10),
+carnet1_conductor varchar(50),
+carnet2_conductor varchar(50),
+licencia1_conductor varchar(50),
+licencia2_conductor varchar(50)
+);
+
+create table vehiculo(
+patente_vehiculo varchar(12) primary key,
+tipo_vehiculo varchar(30),
+marca_vehiculo varchar(30),
+modelo_vehiculo varchar(30),
+color_vehiculo varchar(30),
+año_vehiculo varchar(50),
+vin_vehiculo varchar(10),
+motor_vehiculo varchar(50),
+rut_conductor varchar(12),
+rut_user varchar(10),
+foreign key conductor(rut_conductor) references conductor(rut_conductor)
+);
