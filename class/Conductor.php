@@ -7,8 +7,9 @@ class Conductor{
 	private $apellido2;
 	private $direccion;
 	private $numero;
+	private $estado;
 	
-	public function Conductor($rut,$nombre1,$nombre2,$apellido1,$apellido2,$direccion,$numero){
+	public function Conductor($rut,$nombre1,$nombre2,$apellido1,$apellido2,$direccion,$numero,$estado){
 		$this->rut = $rut;
 		$this->nombre1 = $nombre1;
 		$this->nombre2 = $nombre2;
@@ -16,6 +17,7 @@ class Conductor{
 		$this->apellido2 = $apellido2;
 		$this->direccion = $direccion;
 		$this->numero = $numero;						
+		$this->estado = $estado;						
 	}
 		
 	public function getRut(){
@@ -39,6 +41,9 @@ class Conductor{
 	public function getNumero(){
 		return $this->numero;
 	}
+	public function getEstado(){
+		return $this->estado;
+	}
 	public function setRut($rut){
 		$this->rut = $rut;
 	}
@@ -59,6 +64,9 @@ class Conductor{
 	}
 	public function setNumero($numero){
 		$this->numero = $numero;
+	}
+	public function setEstado($estado){
+		$this->estado = $estado;
 	}
 }
 ?>

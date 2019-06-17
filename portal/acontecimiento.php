@@ -112,6 +112,7 @@ if(isset($_SESSION['USUARIO'])){
           <h6 class="dropdown-header">Entregas</h6>
 		  <a class="dropdown-item" href="registrar-entrega.php">Registrar entrega</a>
 		  <a class="dropdown-item" href="modificar-entrega.php">Modificar entrega</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Gestión de vehículos</h6>
           <a class="dropdown-item" href="nuevo-vehiculo.php">Nuevo vehículo</a>
 		  <a class="dropdown-item" href="eliminar-vehiculo.php">Eliminar vehículo</a>
@@ -121,6 +122,7 @@ if(isset($_SESSION['USUARIO'])){
           <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
           <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
 		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Notas</h6>
 		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
 		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>

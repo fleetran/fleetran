@@ -24,10 +24,9 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 <?php 
-require('../class/Usuario.php');
-require('../class/Plan.php');
+require('../class/DAO.php');
 session_start();
-
+$d = new DAO();
 if(!isset($_SESSION['LICENCIA'])){
 	header("location:class/procesar.php");	
 }
@@ -37,7 +36,10 @@ if(isset($_SESSION['USUARIO'])){
 	$nombre = $u->getNombre();
 	$actividad = $p->getActividad();
 	$flota = $p->getFlota();
+	$lista = $d->vehiculosnoAsignados($u->getRut());
+	$lista2 = $d->conductornoAsignados($u->getRut());
 }			
+
 ?>
     <a class="navbar-brand mr-1" href="../portal2.php"><?php echo strtoupper($nombre);?></a>
 
@@ -112,6 +114,7 @@ if(isset($_SESSION['USUARIO'])){
           <h6 class="dropdown-header">Entregas</h6>
 		  <a class="dropdown-item" href="registrar-entrega.php">Registrar entrega</a>
 		  <a class="dropdown-item" href="modificar-entrega.php">Modificar entrega</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Gestión de vehículos</h6>
           <a class="dropdown-item" href="nuevo-vehiculo.php">Nuevo vehículo</a>
 		  <a class="dropdown-item" href="eliminar-vehiculo.php">Eliminar vehículo</a>
@@ -121,6 +124,7 @@ if(isset($_SESSION['USUARIO'])){
           <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
           <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
 		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Notas</h6>
 		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
 		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>
@@ -145,9 +149,68 @@ if(isset($_SESSION['USUARIO'])){
         <div class="card mb-3">
           <div class="card-header">
             <i></i>
-            Vinculacion de conductores</div>
-         
-          
+            Vinculación de conductores</div>
+			
+          <div class="card-body" style="margin-left:20%;margin-right:20%;">
+        
+		<h6>Seleccion de vehículo</h6>
+			  <form  method="post" action="../class/procesar.php"><div class="form-group">
+                <select class="form-control" name="patente">
+						<option value="0" selected disabled>Seleccione:</option>
+						<?php
+							for($i=0; $i<count($lista); $i++){
+								$v = $lista[$i];
+								echo "<option value='".$v->getPatente()."'>" . $v->getPatente()." - ".$v->getMarca()." ".$v->getModelo()."</option>";
+							}
+							if(isset($_REQUEST['patente'])){
+								echo "<option selected value='".$_REQUEST['patente']."'>" . $_REQUEST['patente']."</option>";								
+							}
+							
+						?>		
+				</select>
+              </div><h6>Datos del conductor</h6>
+			  <div class="form-group">
+                <select class="form-control" name="conductor" >
+						<option value="0" selected disabled>Seleccione:</option>
+						<?php
+							for($i=0; $i<count($lista2); $i++){
+								$c = $lista2[$i];
+								echo "<option value='".$c->getRut()."'>" . $c->getRut()."  -  ". $c->getNombre1()." ".$c->getNombre2()." ".$c->getApellido1()." ". $c->getApellido2()."</option>";
+							}
+							if(isset($_REQUEST['conductor'])){
+								echo "<option selected value='".$_REQUEST['conductor']."'>" . $_REQUEST['conductor']."</option>";								
+							}
+						?>		
+				</select>
+              </div>
+		<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
+  Guardar
+</button>
+<!-- Confirm Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Desea guardar los cambios?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Si hace clic en confirmar, la información será almacenada en la base de datos
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" name="btn_vinculacion" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Fin confirm Modal -->
+</form>
+		
+      </div>
         </div>
       <!-- /.container-fluid -->
 
@@ -188,7 +251,8 @@ if(isset($_SESSION['USUARIO'])){
       </div>
     </div>
   </div>
-
+  
+  
   <!-- Bootstrap core JavaScript-->
   <script src="../vendor/jquery/jquery.min.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

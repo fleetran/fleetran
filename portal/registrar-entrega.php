@@ -24,10 +24,9 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 <?php 
-require('../class/Usuario.php');
-require('../class/Plan.php');
+require('../class/DAO.php');
 session_start();
-
+$d = new DAO();
 if(!isset($_SESSION['LICENCIA'])){
 	header("location:class/procesar.php");	
 }
@@ -37,7 +36,12 @@ if(isset($_SESSION['USUARIO'])){
 	$nombre = $u->getNombre();
 	$actividad = $p->getActividad();
 	$flota = $p->getFlota();
+	$lista = $d->listarVehiculos($u->getRut());
+	
 }			
+if(isset($_REQUEST['patente'])){
+	$c = $d->obtenerConductor($_REQUEST['patente'],$u->getRut());
+}
 ?>
     <a class="navbar-brand mr-1" href="../portal2.php"><?php echo strtoupper($nombre);?></a>
 
@@ -112,6 +116,7 @@ if(isset($_SESSION['USUARIO'])){
           <h6 class="dropdown-header">Entregas</h6>
 		  <a class="dropdown-item" href="registrar-entrega.php">Registrar entrega</a>
 		  <a class="dropdown-item" href="modificar-entrega.php">Modificar entrega</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Gestión de vehículos</h6>
           <a class="dropdown-item" href="nuevo-vehiculo.php">Nuevo vehículo</a>
 		  <a class="dropdown-item" href="eliminar-vehiculo.php">Eliminar vehículo</a>
@@ -121,6 +126,7 @@ if(isset($_SESSION['USUARIO'])){
           <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
           <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
 		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Notas</h6>
 		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
 		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>
@@ -138,19 +144,79 @@ if(isset($_SESSION['USUARIO'])){
       </li>
     </ul>
 
-    <div id="content-wrapper">
+    
+      <!-- /.container-fluid -->
+<div id="content-wrapper">
 
       <div class="container-fluid">
 
         <div class="card mb-3">
           <div class="card-header">
             <i></i>
-            Registrar entrega</div>
-         
-          
-        </div>
-      <!-- /.container-fluid -->
+            Registro de entregas</div>
+			
+          <div class="card-body" style="margin-left:20%;margin-right:20%;">
+        
+		<h6>Seleccion de vehículo</h6>
+			  <form  method="post"><div class="form-group">
+                <select class="form-control" name="patente" onchange="this.form.submit()">
+						<option value="0" selected disabled>Seleccione:</option>
+						<?php
+							for($i=0; $i<count($lista); $i++){
+								$v = $lista[$i];
+								echo "<option value='".$v->getPatente()."'>" . $v->getPatente()." - ".$v->getMarca()." ".$v->getModelo()."</option>";
+							}
+							if(isset($_REQUEST['patente'])){
+								echo "<option selected value='".$_REQUEST['patente']."'>" . $_REQUEST['patente']."</option>";								
+							}
+							
+						?>		
+				</select>
+              </div></form>
+		<form>	
+        <input type="hidden" name="txt_patente" value="<?php echo $_REQUEST['patente']; ?>">
+		
+		<h6>Datos del conductor</h6>
+			<div class="form-group">
+                <div class="form-label-group">
+                  <input type="text" id="lastName" class="form-control" placeholder="Rut" name="conductor" value="<?php if(isset($c)){echo strtoupper($c->getRut());}?>">
+                  <label for="lastName">Rut</label>
+                </div>
+              </div>
+			<div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="lastName" class="form-control" placeholder="Nombres" required="required" value="<?php if(isset($c)){echo strtoupper($c->getNombre1()." ".$c->getNombre2());}?>" disabled>
+                  <label for="lastName">Nombres</label>
+                </div>
+              </div>
+			  <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="lastName" class="form-control" placeholder="Apellidos" required="required" value="<?php if(isset($c)){echo strtoupper($c->getApellido1()." ".$c->getApellido2());}?>" disabled>
+                  <label for="lastName">Apellidos</label>
+                </div>
+              </div>
+            </div><br>
+			
+			<h6>Datos de entrega</h6>
+            <div class="form-group">
+                <div class="form-label-group">
+                  <input type="number" min="10000" step="1000" id="firstName" class="form-control" placeholder="Monto" required="required" name="txt_monto">
+                  <label for="firstName">Monto abonado ($)</label>
+                </div>
+              </div>
+			  <div class="form-group">
+                <div class="form-label-group">
+                  <input type="text" id="lastName2" class="form-control" placeholder="Fecha de entrega" required="required" name="txt_fecha">
+                  <label for="lastName2">Fecha de entrega</label>
+                </div>
+              </div>
 
+          <button class="btn btn-primary btn-block" formaction="../class/procesar.php" name="btn_new_entrega">Guardar</button>
+        </form>
+		
+      </div>
+        </div>
       <!-- Sticky Footer -->
       <footer class="sticky-footer">
         <div class="container my-auto">

@@ -3,6 +3,7 @@
 	require ('Conductor.php');
 	require ('Vehiculo.php');
 	require ('Plan.php');
+	require ('Entrega.php');
 	require ('Licencia.php');	
 class DAO{
 	private $mi;
@@ -147,7 +148,7 @@ class DAO{
 			$dir = $c->getDireccion();
 			$num = $c->getNumero();
 			$user = $u->getRut();
-			$sql = "insert into conductor values ('$rut','$nom1','$nom2','$ape1','$ape2','$dir','$num','Carnet1','Carnet2','Licencia1','Licencia2','$user');";
+			$sql = "insert into conductor values ('$rut','$nom1','$nom2','$ape1','$ape2','$dir','$num','Carnet1','Carnet2','Licencia1','Licencia2','0','$user');";
 			$st = $this->mi->query($sql);
 			if($this->mi->affected_rows>0){
 				return 1;
@@ -189,8 +190,138 @@ class DAO{
 			}
 			$this->desconexion();
 	}
-}
+	
+	public function obtenerConductor($pat,$user){
+		$this->conexion();
+		$sql = "select conductor.rut_conductor,conductor.nombre1_conductor,conductor.nombre2_conductor,conductor.apellido1_conductor,conductor.apellido2_conductor from conductor,vehiculo where vehiculo.rut_conductor=conductor.rut_conductor and vehiculo.rut_user='$user' and vehiculo.patente_vehiculo='$pat';";
+		$st = $this->mi->query($sql);
+		if($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$rut = $rs[0]; 
+			$nom1 = $rs[1];
+			$nom2 = $rs[2];
+			$ape1 = $rs[3];
+			$ape2 = $rs[4];
+			$c = new Conductor($rut,$nom1,$nom2,$ape1,$ape2,'','','');
+		}	
+		$this->desconexion();
+		return $c;
+	}	
+	
+	public function listarVehiculos($rut){
+		$this->conexion();
+		$sql = "select patente_vehiculo,tipo_vehiculo,marca_vehiculo,modelo_vehiculo,color_vehiculo,ano_vehiculo,vin_vehiculo,motor_vehiculo,vehiculo.rut_conductor,vehiculo.rut_user from vehiculo,conductor where vehiculo.rut_user='$rut' and vehiculo.rut_conductor=conductor.rut_conductor ;";
+		$lista = array();
+		$st = $this->mi->query($sql);
+		while($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$patente = $rs[0]; 
+			$tipo = $rs[1];
+			$marca = $rs[2];
+			$modelo = $rs[3];			
+			$color = $rs[4]; 
+			$ano = $rs[5]; 
+			$vin = $rs[6]; 
+			$motor = $rs[7]; 
+			$Vehiculo = new Vehiculo($patente,$tipo,$marca,$modelo,$color,$ano,$vin,$motor);
+			$lista[] = $Vehiculo;					
+			}	
+		$this->desconexion();
+		return $lista;
+	}	
 
+		public function registrarEntrega($pate,$cond,$fech,$mont,$user){
+			$this->conexion();
+			$sql = "insert into entrega values (null,'$pate','$cond','$fech','$mont','$user');";
+			$st = $this->mi->query($sql);
+			if($this->mi->affected_rows>0){
+				return 1;
+			}else{
+				return 0;
+			}
+			$this->desconexion();
+	}
+	
+		public function listarEntrega($rut){
+		$this->conexion();
+		$sql = "select id_entrega,entrega.patente_vehiculo,concat(vehiculo.marca_vehiculo,' ',modelo_vehiculo) as vehiculo,conductor.rut_conductor,concat(conductor.nombre1_conductor,' ',conductor.nombre2_conductor,' ',conductor.apellido1_conductor,' ',conductor.apellido2_conductor) as nombre,fecha_entrega,entrega.monto_entrega from entrega,conductor,vehiculo where entrega.rut_conductor=conductor.rut_conductor and entrega.rut_user='$rut' and entrega.patente_vehiculo=vehiculo.patente_vehiculo;";
+		$lista = array();
+		$st = $this->mi->query($sql);
+		while($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$id = $rs[0]; 
+			$patente = $rs[1]; 
+			$vehiculo = $rs[2];
+			$rut = $rs[3];			
+			$nombre = $rs[4];
+			$fecha = $rs[5]; 
+			$monto = $rs[6]; 
+			$entrega = new Entrega($id,$patente,$vehiculo,$rut,$nombre,$fecha,$monto);
+			$lista[] = $entrega;					
+			}	
+		$this->desconexion();
+		return $lista;
+	}	
+	
+	public function vehiculosnoAsignados($rut){
+		$this->conexion();
+		$sql = "select * from vehiculo where rut_user='$rut' and rut_conductor='';";
+		$lista = array();
+		$st = $this->mi->query($sql);
+		while($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$patente = $rs[0]; 
+			$tipo = $rs[1];
+			$marca = $rs[2];
+			$modelo = $rs[3];			
+			$color = $rs[4]; 
+			$ano = $rs[5]; 
+			$vin = $rs[6]; 
+			$motor = $rs[7]; 
+			$Vehiculo = new Vehiculo($patente,$tipo,$marca,$modelo,$color,$ano,$vin,$motor);
+			$lista[] = $Vehiculo;					
+			}	
+		$this->desconexion();
+		return $lista;
+	}	
+	
+	public function conductornoAsignados($rut){
+		$this->conexion();
+		$sql = "select * from conductor where rut_user='$rut' and estado='0';";
+		$lista = array();
+		$st = $this->mi->query($sql);
+		while($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$rut = $rs[0]; 
+			$nom1 = $rs[1];
+			$nom2 = $rs[2];
+			$ape1 = $rs[3];
+			$ape2 = $rs[4];
+			$c = new Conductor($rut,$nom1,$nom2,$ape1,$ape2,'','','');
+			$lista[] = $c;					
+			}	
+		$this->desconexion();
+		return $lista;
+	}	
+	
+	public function registrarVinculacion($pate,$cond,$user){
+			$this->conexion();
+			$sql = "update vehiculo set rut_conductor ='$cond' where rut_user='$user' and patente_vehiculo='$pate';";
+			$st = $this->mi->query($sql);
+			if($this->mi->affected_rows>0){
+				return 1;
+			}else{
+				return 0;
+			}
+			$this->desconexion();
+	}
+	public function registrarVinculacion2($cond,$user){
+			$this->conexion();
+			$sql = "update conductor set estado = '1' where rut_user='$user' and rut_conductor='$cond';";
+			$st = $this->mi->query($sql);
+			if($this->mi->affected_rows>0){
+				return 1;
+			}else{
+				return 0;
+			}
+			$this->desconexion();
+	}
+}
 ?>
 
 

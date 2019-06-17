@@ -24,17 +24,18 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 <?php 
-require('../class/Usuario.php');
-require('../class/Plan.php');
+require('../class/DAO.php');
 session_start();
 
 if(!isset($_SESSION['LICENCIA'])){
-	header("location:class/procesar.php");	
+	header("location:../login2.php");	
 }
 if(isset($_SESSION['USUARIO'])){
 	$p = $_SESSION["planusuario"];
+	$d = new DAO();
 	$u = $_SESSION['USUARIO'];
 	$nombre = $u->getNombre();
+	$lista = $d->listarEntrega($u->getRut());
 	$actividad = $p->getActividad();
 	$flota = $p->getFlota();
 }			
@@ -112,6 +113,7 @@ if(isset($_SESSION['USUARIO'])){
           <h6 class="dropdown-header">Entregas</h6>
 		  <a class="dropdown-item" href="registrar-entrega.php">Registrar entrega</a>
 		  <a class="dropdown-item" href="modificar-entrega.php">Modificar entrega</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Gestión de vehículos</h6>
           <a class="dropdown-item" href="nuevo-vehiculo.php">Nuevo vehículo</a>
 		  <a class="dropdown-item" href="eliminar-vehiculo.php">Eliminar vehículo</a>
@@ -121,6 +123,7 @@ if(isset($_SESSION['USUARIO'])){
           <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
           <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
 		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Notas</h6>
 		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
 		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>
@@ -151,25 +154,32 @@ if(isset($_SESSION['USUARIO'])){
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"  style="text-align:center;">
                 <thead>
                   <tr>
-                    <td>RUT CONDUCTOR</td>
-                    <td>NOMBRE CONDUCTOR</td>
-                    <td>FECHA</td>
-                    <td>MONTO ($)</td>
+                    <td>ID</td>
+					<td>Patente</td>
+					<td>Vehiculo</td>
+					<td>Rut conductor</td>
+                    <td>Nombre de conductor</td>
+                    <td>Fecha entrega</td>
+                    <td>Monto ($)</td>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>6.373.694-5</td>
-                    <td>Joaquin Lavin</td>
-                    <td>17/06/2019</td>
-                    <td>$90.000</td>
-                  </tr>
-				  <tr>
-                    <td>10.335.125-1</td>
-                    <td>Freddie Mercury</td>
-                    <td>16/06/2019</td>
-                    <td>$60.000</td>
-                  </tr>
+                  <?php 
+				  
+			for($i=0; $i<count($lista); $i++){
+			$e = $lista[$i];
+			echo "<tr>";
+			echo "<td style='text-align:center;'>" . $e->getId(). "</td>";
+			echo "<td style='text-align:center;'>" . $e->getPatente() . "</td>";
+			echo "<td style='text-align:center;'>" . $e->getVehiculo() . "</td>";
+			echo "<td style='text-align:center;'>" . $e->getRut() . "</td>";
+			echo "<td style='text-align:center;'>" . strtoupper($e->getNombre()) . "</td>";
+			echo "<td style='text-align:center;'>" . $e->getFecha() . "</td>";
+			echo "<td style='text-align:center;'>$" . $e->getMonto(). "</td>";
+			echo "</td>";																		
+			echo "</tr>";
+		}
+				  ?>
                 </tbody></center>
               </table>
             </div>

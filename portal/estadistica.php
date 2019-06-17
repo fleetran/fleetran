@@ -112,18 +112,20 @@ if(isset($_SESSION['USUARIO'])){
           <h6 class="dropdown-header">Entregas</h6>
 		  <a class="dropdown-item" href="registrar-entrega.php">Registrar entrega</a>
 		  <a class="dropdown-item" href="modificar-entrega.php">Modificar entrega</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Gestión de vehículos</h6>
           <a class="dropdown-item" href="nuevo-vehiculo.php">Nuevo vehículo</a>
 		  <a class="dropdown-item" href="eliminar-vehiculo.php">Eliminar vehículo</a>
-          <a class="dropdown-item" href="">Registrar mantencion</a>
+          <a class="dropdown-item" href="registrar-mantencion.php">Registrar mantencion</a>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Gestión de conductores</h6>
           <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
           <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
 		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
+		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Notas</h6>
-		  <a class="dropdown-item" href="antecedentes.php">Registrar acontecimiento</a>
-		  <a class="dropdown-item" href="antecedentes.php">Registrar fecha importante</a>
+		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
+		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>
         </div>
       </li>
       <li class="nav-item">
