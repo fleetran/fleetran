@@ -120,6 +120,7 @@ if(isset($_SESSION['USUARIO'])){
           <h6 class="dropdown-header">Gestión de conductores</h6>
           <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
           <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
+		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
 		  <h6 class="dropdown-header">Notas</h6>
 		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
 		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>

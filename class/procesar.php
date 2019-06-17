@@ -1,6 +1,6 @@
 ﻿<?php
-	session_start();
 	require('DAO.php');
+	session_start();
 	$d = new DAO();
 	if(isset($_REQUEST['btn_ing'])){
 			$email = $_REQUEST['txt_email'];
@@ -59,11 +59,12 @@
 		$ape2 = $_REQUEST['txt_ape2'];
 		$dir = $_REQUEST['txt_dir'];	
 		$num = $_REQUEST['txt_num'];
-		if($d->existeConductor($rut)==1){
+		$u = $_SESSION['USUARIO'];
+		if($d->existeConductor($rut)){
 			header('Location:../portal/registrar-conductor.php?res=0');					
 		}else{
 			$c = new Conductor($rut,$nom1,$nom2,$ape1,$ape2,$dir,$num);
-			if($d->registrarConductor($c)==1){
+			if($d->registrarConductor($c,$u)){
 				header('Location:../portal/registrar-conductor.php?res=1');					
 			}else{
 				header('Location:../portal/registrar-conductor.php?res=22');					
@@ -71,7 +72,27 @@
 		}
 	}
 		
-	
+	if(isset($_REQUEST['btn_new_vehiculo'])){
+		$pat = $_REQUEST['txt_patente'];
+		$tip = $_REQUEST['txt_tipo'];	
+		$mar = $_REQUEST['txt_marca'];
+		$mod = $_REQUEST['txt_modelo'];	
+		$col = $_REQUEST['txt_color'];
+		$ano = $_REQUEST['txt_ano'];	
+		$vin = $_REQUEST['txt_vin'];
+		$mot = $_REQUEST['txt_motor'];
+		$u = $_SESSION['USUARIO'];
+		if($d->existeVehiculo($pat)){
+			header('Location:../portal/nuevo-vehiculo.php?res=0');					
+		}else{
+			$v = new Vehiculo($pat,$tip,$mar,$mod,$col,$ano,$vin,$mot);
+			if($d->registrarVehiculo($v,$u)){
+				header('Location:../portal/nuevo-vehiculo.php?res=1');					
+			}else{
+				header('Location:../portal/nuevo-vehiculo.php?res=22');					
+			}	
+		}
+	}
 	
 	
 ?>

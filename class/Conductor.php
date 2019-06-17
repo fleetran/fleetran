@@ -22,16 +22,16 @@ class Conductor{
 		return $this->rut;
 	}
 	public function getNombre1(){
-		return $this->nombre;
+		return $this->nombre1;
 	}
 	public function getNombre2(){
 		return $this->nombre2;
 	}
 	public function getApellido1(){
-		return $this->apellido;
+		return $this->apellido1;
 	}
 	public function getApellido2(){
-		return $this->apellido;
+		return $this->apellido2;
 	}
 	public function getDireccion(){
 		return $this->direccion;

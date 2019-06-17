@@ -120,6 +120,7 @@ if(isset($_SESSION['USUARIO'])){
           <h6 class="dropdown-header">Gestión de conductores</h6>
           <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
           <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
+		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
 		  <h6 class="dropdown-header">Notas</h6>
 		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
 		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>
@@ -193,13 +194,13 @@ if(isset($_SESSION['USUARIO'])){
 			  <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="firstName" class="form-control" placeholder="Dpto. (opcional)" required="required" autofocus="autofocus"  name="txt_num">
+                  <input type="text" id="firstName" class="form-control" placeholder="Dpto. (opcional)" required="required" autofocus="autofocus">
                   <label for="firstName">Dpto. (opcional)</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="firstName" class="form-control" placeholder="Numero" required="required" autofocus="autofocus">
+                  <input type="text" id="firstName" class="form-control" placeholder="Numero" required="required" autofocus="autofocus" name="txt_num">
                   <label for="firstName">Número</label>
                 </div>
               </div>

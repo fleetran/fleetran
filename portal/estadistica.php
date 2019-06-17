@@ -29,7 +29,7 @@ require('../class/Plan.php');
 session_start();
 
 if(!isset($_SESSION['LICENCIA'])){
-	header("location:class/procesar.php");	
+	header("location:../class/procesar.php");	
 }
 if(isset($_SESSION['USUARIO'])){
 	$p = $_SESSION["planusuario"];
@@ -39,7 +39,7 @@ if(isset($_SESSION['USUARIO'])){
 	$flota = $p->getFlota();
 }			
 ?>
-    <a class="navbar-brand mr-1" href="../portal2.php"><?php echo strtoupper($nombre);?></a>
+    <a class="navbar-brand mr-1" href="../portal"><?php echo strtoupper($nombre);?></a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -98,7 +98,7 @@ if(isset($_SESSION['USUARIO'])){
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="../portal2.php">
+        <a class="nav-link" href="portal2.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Menu Principal</span>
         </a>
@@ -115,14 +115,15 @@ if(isset($_SESSION['USUARIO'])){
 		  <h6 class="dropdown-header">Gestión de vehículos</h6>
           <a class="dropdown-item" href="nuevo-vehiculo.php">Nuevo vehículo</a>
 		  <a class="dropdown-item" href="eliminar-vehiculo.php">Eliminar vehículo</a>
-          <a class="dropdown-item" href="registrar-mantencion.php">Registrar mantencion</a>
+          <a class="dropdown-item" href="">Registrar mantencion</a>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Gestión de conductores</h6>
           <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
           <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
+		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
 		  <h6 class="dropdown-header">Notas</h6>
-		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
-		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>
+		  <a class="dropdown-item" href="antecedentes.php">Registrar acontecimiento</a>
+		  <a class="dropdown-item" href="antecedentes.php">Registrar fecha importante</a>
         </div>
       </li>
       <li class="nav-item">
@@ -141,27 +142,23 @@ if(isset($_SESSION['USUARIO'])){
 
       <div class="container-fluid">
 
+        
+
+        <!-- Icon Cards-->
+       
+
+        <!-- Area Chart Example-->
         <div class="card mb-3">
           <div class="card-header">
-            <i class="fas fa-table"></i>
-            Histórico</div>
+            <i class="fas fa-chart-area"></i>
+            Estadísticas</div>
           <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <td>RUT CONDUCTOR</td>
-                    <td>NOMBRE CONDUCTOR</td>
-                    <td>FECHA</td>
-                    <td>MONTO ($)</td>
-                    
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <canvas id="myAreaChart" width="100%" height="30"></canvas>
           </div>
           <div class="card-footer small text-muted">Actualizado hoy a las 13:30 horas</div>
         </div>
+
+        
       <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
@@ -198,7 +195,7 @@ if(isset($_SESSION['USUARIO'])){
         <div class="modal-body">Selecciona "Salir" si estas seguro que quieres cerrar tu sesión.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="../salir.php">Salir</a>
+          <a class="btn btn-primary" href="salir.php">Salir</a>
         </div>
       </div>
     </div>

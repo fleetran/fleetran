@@ -1,6 +1,7 @@
 ﻿<?php
 	require ('Usuario.php');
 	require ('Conductor.php');
+	require ('Vehiculo.php');
 	require ('Plan.php');
 	require ('Licencia.php');	
 class DAO{
@@ -136,7 +137,7 @@ class DAO{
 		}
 	}
 	
-	public function registrarConductor($c){
+	public function registrarConductor($c,$u){
 			$this->conexion();
 			$rut = $c->getRut();
 			$nom1 = $c->getNombre1();
@@ -145,17 +146,49 @@ class DAO{
 			$ape2 = $c->getApellido2();
 			$dir = $c->getDireccion();
 			$num = $c->getNumero();
-			header('Location:../portal/prueba.php?rut='.$rut.'&nom1='.$nom1.'&nom2='.$nom2.'&ape1='.$ape1.'&ape2='.$ape2.'&dir='.$dir.'&num='.$num);					
-			/*$sql = "insert into conductor values ('$rut','$nom1','$nom2','$ape1','$ape2','$dir','$num');";
+			$user = $u->getRut();
+			$sql = "insert into conductor values ('$rut','$nom1','$nom2','$ape1','$ape2','$dir','$num','Carnet1','Carnet2','Licencia1','Licencia2','$user');";
 			$st = $this->mi->query($sql);
 			if($this->mi->affected_rows>0){
 				return 1;
 			}else{
 				return 0;
 			}
-			$this->desconexion();*/
+			$this->desconexion();
 	}
 	
+	public function existeVehiculo($pat){
+			$this->conexion();
+		$sql = "select * from vehiculo where patente_vehiculo='$pat'";
+		$st = $this->mi->query($sql);
+		if($rs = $st->fetch_array(MYSQLI_BOTH)){
+			return 1;
+		}else{
+			$this->desconexion();
+			return 0;
+		}
+	}
+	
+	public function registrarVehiculo($v,$u){
+			$this->conexion();
+			$pat = $v->getPatente();
+			$tip = $v->getTipo();
+			$mar = $v->getMarca();
+			$mod = $v->getModelo();
+			$col = $v->getColor();
+			$ano = $v->getAno();
+			$vin = $v->getVin();
+			$mot = $v->getMotor();
+			$user = $u->getRut();
+			$sql = "insert into vehiculo values ('$pat','$tip','$mar','$mod','$col','$ano','$vin','$mot','','$user');";
+			$st = $this->mi->query($sql);
+			if($this->mi->affected_rows>0){
+				return 1;
+			}else{
+				return 0;
+			}
+			$this->desconexion();
+	}
 }
 
 ?>

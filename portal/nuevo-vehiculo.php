@@ -120,6 +120,7 @@ if(isset($_SESSION['USUARIO'])){
           <h6 class="dropdown-header">Gestión de conductores</h6>
           <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
           <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
+		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
 		  <h6 class="dropdown-header">Notas</h6>
 		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
 		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>
@@ -152,13 +153,13 @@ if(isset($_SESSION['USUARIO'])){
 			  <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="firstName" class="form-control" placeholder="Placa patente" required="required" autofocus="autofocus">
+                  <input type="text" id="firstName" class="form-control" placeholder="Placa patente" required="required" autofocus="autofocus" name="txt_patente">
                   <label for="firstName">Placa patente</label>
                 </div>
               </div>
               <div class="col-md-6" style="margin-top:1%;">
                 <div class="form-row">
-					  <select class="form-control" name="txt_flota">
+					  <select class="form-control" name="txt_tipo">
 						<option value="0" selected disabled>Tipo de Vehículo:</option>
 						<option value="1" disabled>Camiones +2 ejes</option>
 						<option value="2" disabled>Vehículos de construcción</option>
@@ -174,13 +175,13 @@ if(isset($_SESSION['USUARIO'])){
 			<div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="lastName" class="form-control" placeholder="Marca" required="required">
+                  <input type="text" id="lastName" class="form-control" placeholder="Marca" required="required" name="txt_marca">
                   <label for="lastName">Marca</label>
                 </div>
               </div>
 			  <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="lastName" class="form-control" placeholder="Modelo" required="required">
+                  <input type="text" id="lastName" class="form-control" placeholder="Modelo" required="required" name="txt_modelo">
                   <label for="lastName">Modelo</label>
                 </div>
               </div>
@@ -188,13 +189,13 @@ if(isset($_SESSION['USUARIO'])){
 			<div class="form-row">
                <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="lastName" class="form-control" placeholder="Color" required="required">
+                  <input type="text" id="lastName" class="form-control" placeholder="Color" required="required" name="txt_color">
                   <label for="lastName">Color</label>
                 </div>
               </div>
 			  <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="lastName" class="form-control" placeholder="Año de fabricación" required="required">
+                  <input type="text" id="lastName" class="form-control" placeholder="Año de fabricación" required="required" name="txt_ano">
                   <label for="lastName">Año de fabricación</label>
                 </div>
               </div>
@@ -202,18 +203,18 @@ if(isset($_SESSION['USUARIO'])){
 			<h5>Identificación del vehículo</h5>
           <div class="form-group">
                 <div class="form-label-group">
-                  <input type="text" id="lastName" class="form-control" placeholder="VIN (número de chasis)" required="required" name="txt_nombre">
+                  <input type="text" id="lastName" class="form-control" placeholder="VIN (número de chasis)" required="required" name="txt_vin">
                   <label for="lastName">VIN (número de chasis)</label>
                 </div>
               </div>
 			  <div class="form-group">
                 <div class="form-label-group">
-                  <input type="text" id="lastName" class="form-control" placeholder="Número de motor" required="required" name="txt_nombre">
+                  <input type="text" id="lastName" class="form-control" placeholder="Número de motor" required="required" name="txt_motor">
                   <label for="lastName">Número de motor</label>
                 </div>
               </div>
 
-          <button class="btn btn-primary btn-block" name="btn_reg2" formaction="class/procesar.php">Finalizar</button>
+          <button class="btn btn-primary btn-block" name="btn_new_vehiculo" formaction="../class/procesar.php">Finalizar</button>
         </form>
       </div>
         </div>
