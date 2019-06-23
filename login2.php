@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php 
+			require('class/DAO.php');
+			session_start();
+			if(isset($_SESSION['USUARIO'])){
+				header("location:portal2.php");	
+			}
+			?>
 <head>
 
   <meta charset="utf-8">

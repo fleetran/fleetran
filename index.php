@@ -15,7 +15,7 @@
 			require('class/DAO.php');
 			session_start();
 			if(isset($_SESSION['USUARIO'])){
-				header("location:class/procesar.php");	
+				header("location:portal2.php");	
 			}
 			?>
 

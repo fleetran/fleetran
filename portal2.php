@@ -28,7 +28,7 @@ require('class/DAO.php');
 session_start();
 
 if(!isset($_SESSION['LICENCIA'])){
-	header("location:class/procesar.php");	
+	header("location:compra-plan2.php");	
 }
 if(isset($_SESSION['USUARIO'])){
 	$p = $_SESSION["planusuario"];
@@ -207,7 +207,7 @@ if(isset($_SESSION['USUARIO'])){
               </table>
             </div>
           </div>
-          <div class="card-footer small text-muted">Actualizado hoy a las 13:30 horas</div>
+          <div class="card-footer small text-muted">Actualizado hoy a las <?php $time = time(); echo date("H:i", $time); ?> horas</div>
         </div>
 
       </div>

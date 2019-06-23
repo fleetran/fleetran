@@ -102,7 +102,7 @@
 		$u = $_SESSION['USUARIO'];
 		$user = $u->getRut();
 		if($d->registrarEntrega($pate,$cond,$fech,$mont,$user)){
-				header('Location:../portal/registrar-entrega.php?res=1');					
+				header('Location:../portal/historico.php?res=1');					
 			}else{
 				header('Location:../portal/registrar-entrega.php?res=22');					
 			}

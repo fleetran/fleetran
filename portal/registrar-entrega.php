@@ -179,20 +179,20 @@ if(isset($_REQUEST['patente'])){
 		<h6>Datos del conductor</h6>
 			<div class="form-group">
                 <div class="form-label-group">
-                  <input type="text" id="lastName" class="form-control" placeholder="Rut" name="conductor" value="<?php if(isset($c)){echo strtoupper($c->getRut());}?>">
+                  <input type="text" id="lastName" required class="form-control" placeholder="Rut" name="conductor" value="<?php if(isset($c)){echo strtoupper($c->getRut());}?>"  readonly="readonly">
                   <label for="lastName">Rut</label>
                 </div>
               </div>
 			<div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="lastName" class="form-control" placeholder="Nombres" required="required" value="<?php if(isset($c)){echo strtoupper($c->getNombre1()." ".$c->getNombre2());}?>" disabled>
+                  <input type="text" id="lastName" class="form-control" placeholder="Nombres" required="required" value="<?php if(isset($c)){echo strtoupper($c->getNombre1()." ".$c->getNombre2());}?>"  readonly="readonly">
                   <label for="lastName">Nombres</label>
                 </div>
               </div>
 			  <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="lastName" class="form-control" placeholder="Apellidos" required="required" value="<?php if(isset($c)){echo strtoupper($c->getApellido1()." ".$c->getApellido2());}?>" disabled>
+                  <input type="text" id="lastName" class="form-control" placeholder="Apellidos" required="required" value="<?php if(isset($c)){echo strtoupper($c->getApellido1()." ".$c->getApellido2());}?>"  readonly="readonly">
                   <label for="lastName">Apellidos</label>
                 </div>
               </div>
@@ -207,7 +207,7 @@ if(isset($_REQUEST['patente'])){
               </div>
 			  <div class="form-group">
                 <div class="form-label-group">
-                  <input type="text" id="lastName2" class="form-control" placeholder="Fecha de entrega" required="required" name="txt_fecha">
+                  <input type="text" id="lastName2" class="form-control" placeholder="Fecha de entrega" required="required" name="txt_fecha"  readonly="readonly" value="<?php $fecha = date('d/m/Y'); echo $fecha;?>">
                   <label for="lastName2">Fecha de entrega</label>
                 </div>
               </div>
