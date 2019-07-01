@@ -20,27 +20,41 @@
         .resultados{
             margin: auto;
             margin-top: 40px;
-            width: 1000px;
+            width: 500px;
         }
     </style>
     <body> 
-        <div class="caja">
-            <select onChange="mostrarResultados(this.value);">
-                <?php
-                    for($i=2000;$i<2020;$i++){
-                        if($i == 2015){
+        
+            <?php
+                
+                    require('../class/DAO.php');
+					session_start();
+					$u = $_SESSION['USUARIO'];
+					$rut = $u->getRut();
+					$d = new DAO();
+					$min = $d->anoMin($rut);
+					$max = $d->anoMax($rut);
+					if($min!=null){
+						echo "<div class='caja'><select onChange='mostrarResultados(this.value);'>";
+						for($i=$max;$i>=$min;$i--){
+                        if($i == $max){
                             echo '<option value="'.$i.'" selected>'.$i.'</option>';
                         }else{
                             echo '<option value="'.$i.'">'.$i.'</option>';
                         }
                     }
-                ?>
+					
+					echo"
             </select>
         </div>
-        <div class="resultados"><canvas id="grafico"></canvas></div>
+        <div class='resultados'><canvas id='grafico'></canvas></div>";
+		}else{
+						echo "<script language='javascript'>alert('No existen registros');</script>";
+					}
+                ?>
     </body>
     <script>
-            $(document).ready(mostrarResultados(2015));  
+            $(document).ready(mostrarResultados(<?php echo $max?>));  
                 function mostrarResultados(year){
                     $('.resultados').html('<canvas id="grafico"></canvas>');
                     $.ajax({

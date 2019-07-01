@@ -68,7 +68,7 @@
 			</p>          			
 			
 			<h3   style="padding-left:10%;padding-right:10%;">Estructura organizacional:</h3>
-			<center><br><img src="images/organigrama.png" style="width:70%;height:70%;"></img></center>
+			<center><br><img src="img/organigrama.png" style="width:70%;height:70%;"></img></center>
 			
 			<h3   style="padding-left:10%;padding-right:10%;">Cultura organizacional:</h3>
 			<br><br><br><br><br>

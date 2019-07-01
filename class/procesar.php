@@ -1,10 +1,26 @@
 ﻿<?php
 	require('DAO.php');
+	require('logs.php');
 	session_start();
 	$d = new DAO();
+	$log = new Logs();
+	function getRealIP() {
+
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
+            return $_SERVER['HTTP_CLIENT_IP'];
+           
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+       
+        return $_SERVER['REMOTE_ADDR'];
+}
+
 	if(isset($_REQUEST['btn_ing'])){
 			$email = $_REQUEST['txt_email'];
 			$pass = md5($_REQUEST['txt_pass']);
+			$ip = $_SERVER['REMOTE_ADDR'];
+			$fecha = date('Y-m-d');
+			$hora = date('H:i:s');
 			$u = $d->comprobarUsuario($email,$pass);
 			if($u!=null){
 				$_SESSION["USUARIO"] = $u;											
@@ -13,12 +29,16 @@
 				$_SESSION["planusuario"] = $p;
 				if($licencia==1){
 					$_SESSION["LICENCIA"] = 1;
+					$log->ingresoLog($email,$ip,$hora,$fecha,1);		
 					header("location:../portal2.php");
 				}else{
+					$log->ingresoLog($email,$ip,$hora,$fecha,6);		
 					header("location:../compra-plan2.php");	
 				}		
 			}else{
-				header('Location:../login2.php?res=0');		
+				$log->ingresoLog($email,$ip,$hora,$fecha,2);		
+				header('Location:../login2.php?res=0');
+				
 		}		
 	}
 	

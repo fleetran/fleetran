@@ -39,7 +39,7 @@
 <div id="signup-form">
         <div id="signup-inner">
        	<div class="clearfix" id="header">
-        		<img id="signup-icon" src="./images/message.png" alt="" />
+        		<img id="signup-icon" src="./img/message.png" alt="" />
                 <h1>Contáctanos</h1>            
             </div>
             <form id="send" action="enviar-contacto.php">

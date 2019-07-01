@@ -49,8 +49,8 @@
       <div class="sh__item">
          <img src="img/slide-img01.jpg" alt="imgText">
          <div class="sh__meta">
-            <h4>TRANSPORTES DE CARGA</h4>
-            <span>ADMINISTRA TUS VEHÍCULOS DESDE NUESTRO SISTEMA</span>
+            <h4>TRANSPORTE PÚBLICO</h4>
+            <span>ADMINISTRA TU FLOTA DESDE NUESTRO SISTEMA</span>
          </div>
       </div>
 
@@ -65,8 +65,8 @@
       <div class="sh__item">
          <img src="img/slide-img03.jpg" alt="imgText">
          <div class="sh__meta">
-            <h4>FINANZAS</h4>
-            <span>VISUALIZA EL DINERO GENERADO POR TUS VEHÍCULOS</span>
+            <h4>ESTADÍSTICAS</h4>
+            <span>VISUALIZA EL RENDIMIENTO DETALLADO DE TU FLOTA</span>
          </div>
       </div>
   
@@ -83,7 +83,7 @@
    </div>
 <button class="sh-control"></button>  
 </div>
-<script src="js/sheetslider.min.js"></script>
+<script src="vendor/jquery/sheetslider.min.js"></script>
 
 		<footer class="footer-distributed">
 

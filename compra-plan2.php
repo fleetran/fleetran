@@ -99,9 +99,9 @@ if(isset($_SESSION['USUARIO']) and isset($_SESSION['planusuario'])){
   <script src="js/sb-admin.min.js"></script>
 
   <!-- Demo scripts for this page-->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-bar-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <script src="vendor/chart.js/chart-area-demo.js"></script>
+  <script src="vendor/chart.js/chart-bar-demo.js"></script>
+  <script src="vendor/chart.js/chart-pie-demo.js"></script>
 
 </body>
 
