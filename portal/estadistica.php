@@ -98,7 +98,7 @@ if(isset($_SESSION['USUARIO'])){
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="portal2.php">
+        <a class="nav-link" href="../portal2.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Menu Principal</span>
         </a>
@@ -110,22 +110,27 @@ if(isset($_SESSION['USUARIO'])){
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Entregas</h6>
-		  <a class="dropdown-item" href="registrar-entrega.php">Registrar entrega</a>
-		  <a class="dropdown-item" href="modificar-entrega.php">Modificar entrega</a>
+		  <a class="dropdown-item" href="mantenedores/registrar-entrega.php">Registrar entrega</a>
+		  <a class="dropdown-item" href="mantenedores/modificar-entrega.php">Modificar entrega</a>
 		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Gestión de vehículos</h6>
-          <a class="dropdown-item" href="nuevo-vehiculo.php">Nuevo vehículo</a>
-		  <a class="dropdown-item" href="eliminar-vehiculo.php">Eliminar vehículo</a>
-          <a class="dropdown-item" href="registrar-mantencion.php">Registrar mantencion</a>
+          <a class="dropdown-item" href="mantenedores/nuevo-vehiculo.php">Nuevo vehículo</a>
+		  <a class="dropdown-item" href="mantenedores/eliminar-vehiculo.php">Eliminar vehículo</a>
+          <a class="dropdown-item" href="mantenedores/registrar-mantencion.php">Registrar mantencion</a>
+          <div class="dropdown-divider"></div>
+		  <h6 class="dropdown-header">Gestión de rendimiento</h6>
+          <a class="dropdown-item" href="mantenedores/registrar-kilometraje.php">Registrar kilometraje</a>
+		  <a class="dropdown-item" href="mantenedores/modificar-kilometraje.php">Modificar registro</a>
+          <a class="dropdown-item" href="mantenedores/eliminar-kilometraje.php">Eliminar registro</a>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Gestión de conductores</h6>
-          <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
-          <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
-		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
+          <a class="dropdown-item" href="mantenedores/registrar-conductor.php">Registrar conductor</a>
+          <a class="dropdown-item" href="mantenedores/suspender-conductor.php">Suspender conductor</a>
+		  <a class="dropdown-item" href="mantenedores/vinculacion-conductor.php">Vinculacion de conductor</a>
 		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Notas</h6>
-		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
-		  <a class="dropdown-item" href="fecha-importante.php">Registrar fecha importante</a>
+		  <a class="dropdown-item" href="mantenedores/acontecimiento.php">Registrar acontecimiento</a>
+		  <a class="dropdown-item" href="mantenedores/fecha-importante.php">Registrar fecha importante</a>
         </div>
       </li>
       <li class="nav-item">
@@ -133,10 +138,35 @@ if(isset($_SESSION['USUARIO'])){
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Estadísticas</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="historico.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Histórico</span></a>
+	  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-file"></i>
+          <span>Reportes</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <h6 class="dropdown-header">Informes</h6>
+		  <a class="dropdown-item" href="informes/acontecimientos.php">Acontecimientos</a>
+		  <a class="dropdown-item" href="informes/conductores.php">Conductores</a>
+		  <a class="dropdown-item" href="informes/egresos.php">Egresos</a>
+		  <a class="dropdown-item" href="informes/fechas.php">Fechas importantes</a>
+		  <a class="dropdown-item" href="informes/ingresos.php">Ingresos</a>
+		  <a class="dropdown-item" href="informes/rendimiento.php">Rendimiento</a>
+		  <a class="dropdown-item" href="informes/vehiculos.php">Vehículos</a>
+        </div>
+      </li>
+	  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-shield-alt"></i>
+          <span>Seguridad</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <h6 class="dropdown-header">Respaldos</h6>
+		  <a class="dropdown-item" href="seguridad/copy.php">Copia de seguridad</a>
+		  <a class="dropdown-item" href="seguridad/restore.php">Restaurar copia</a>
+		  <div class="dropdown-divider"></div>
+		  <h6 class="dropdown-header">Restablecer</h6>
+		  <a class="dropdown-item" href="seguridad/reset.php">Restablecer información</a>
+        </div>
       </li>
     </ul>
 
@@ -155,7 +185,7 @@ if(isset($_SESSION['USUARIO'])){
             <i class="fas fa-chart-area"></i>
             Estadísticas</div>
           <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
+            <iframe src="index.php" style="width:100%;height:650px;border:none;"></iframe>
           </div>
           <div class="card-footer small text-muted">Actualizado hoy a las 13:30 horas</div>
         </div>
@@ -197,7 +227,7 @@ if(isset($_SESSION['USUARIO'])){
         <div class="modal-body">Selecciona "Salir" si estas seguro que quieres cerrar tu sesión.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="salir.php">Salir</a>
+          <a class="btn btn-primary" href="../salir.php">Salir</a>
         </div>
       </div>
     </div>

@@ -10,13 +10,13 @@
   <title>Fleetran</title>
 
   <!-- Custom fonts for this template-->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
-  <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="../../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="../css/sb-admin.css" rel="stylesheet">
+  <link href="../../css/sb-admin.css" rel="stylesheet">
 
 </head>
 
@@ -24,23 +24,24 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 <?php 
-require('../class/DAO.php');
+require('../../class/DAO.php');
 session_start();
-
+$d = new DAO();
 if(!isset($_SESSION['LICENCIA'])){
-	header("location:../login2.php");	
+	header("location:class/procesar.php");	
 }
 if(isset($_SESSION['USUARIO'])){
 	$p = $_SESSION["planusuario"];
-	$d = new DAO();
 	$u = $_SESSION['USUARIO'];
 	$nombre = $u->getNombre();
-	$lista = $d->listarEntrega($u->getRut());
 	$actividad = $p->getActividad();
 	$flota = $p->getFlota();
+	$lista = $d->vehiculosnoAsignados($u->getRut());
+	$lista2 = $d->conductornoAsignados($u->getRut());
 }			
+
 ?>
-    <a class="navbar-brand mr-1" href="../portal2.php"><?php echo strtoupper($nombre);?></a>
+    <a class="navbar-brand mr-1" href="../../portal2.php"><?php echo strtoupper($nombre);?></a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -96,10 +97,10 @@ if(isset($_SESSION['USUARIO'])){
 
   <div id="wrapper">
 
-    <!-- Sidebar -->    
+    <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="portal2.php">
+        <a class="nav-link" href="../../portal2.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Menu Principal</span>
         </a>
@@ -111,31 +112,31 @@ if(isset($_SESSION['USUARIO'])){
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Entregas</h6>
-		  <a class="dropdown-item" href="portal/registrar-entrega.php">Registrar entrega</a>
-		  <a class="dropdown-item" href="portal/modificar-entrega.php">Modificar entrega</a>
+		  <a class="dropdown-item" href="registrar-entrega.php">Registrar entrega</a>
+		  <a class="dropdown-item" href="modificar-entrega.php">Modificar entrega</a>
 		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Gestión de vehículos</h6>
-          <a class="dropdown-item" href="portal/nuevo-vehiculo.php">Nuevo vehículo</a>
-		  <a class="dropdown-item" href="portal/eliminar-vehiculo.php">Eliminar vehículo</a>
-          <a class="dropdown-item" href="portal/registrar-mantencion.php">Registrar mantencion</a>
+          <a class="dropdown-item" href="nuevo-vehiculo.php">Nuevo vehículo</a>
+		  <a class="dropdown-item" href="eliminar-vehiculo.php">Eliminar vehículo</a>
+          <a class="dropdown-item" href="registrar-mantencion.php">Registrar mantencion</a>
           <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Gestión de rendimiento</h6>
-          <a class="dropdown-item" href="#">Registrar kilometraje</a>
-		  <a class="dropdown-item" href="#">Modificar registro</a>
-          <a class="dropdown-item" href="#">Eliminar registro</a>
+          <a class="dropdown-item" href="registrar-kilometraje.php">Registrar kilometraje</a>
+		  <a class="dropdown-item" href="modificar-kilometraje.php">Modificar registro</a>
+          <a class="dropdown-item" href="eliminar-kilometraje.php">Eliminar registro</a>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Gestión de conductores</h6>
-          <a class="dropdown-item" href="portal/registrar-conductor.php">Registrar conductor</a>
-          <a class="dropdown-item" href="portal/suspender-conductor.php">Suspender conductor</a>
-		  <a class="dropdown-item" href="portal/vinculacion-conductor.php">Vinculacion de conductor</a>
+          <a class="dropdown-item" href="registrar-conductor.php">Registrar conductor</a>
+          <a class="dropdown-item" href="suspender-conductor.php">Suspender conductor</a>
+		  <a class="dropdown-item" href="vinculacion-conductor.php">Vinculacion de conductor</a>
 		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Notas</h6>
-		  <a class="dropdown-item" href="portal/acontecimiento.php">Registrar acontecimiento</a>
-		  <a class="dropdown-item" href="portal/fecha-importante.php">Registrar fecha importante</a>
+		  <a class="dropdown-item" href="acontecimiento.php">Registrar acontecimiento</a>
+		  <a class="dropdown-item" href="mantenedores/fecha-importante.php">Registrar fecha importante</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="portal/estadistica.php">
+        <a class="nav-link" href="../estadistica.php">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Estadísticas</span></a>
       </li>
@@ -146,13 +147,13 @@ if(isset($_SESSION['USUARIO'])){
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Informes</h6>
-		  <a class="dropdown-item" href="#">Acontecimientos</a>
-		  <a class="dropdown-item" href="portal/informes/conductores.php">Conductores</a>
-		  <a class="dropdown-item" href="#">Egresos</a>
-		  <a class="dropdown-item" href="#">Fechas importantes</a>
-		  <a class="dropdown-item" href="#">Ingresos</a>
-		  <a class="dropdown-item" href="#">Rendimiento</a>
-		  <a class="dropdown-item" href="#">Vehículos</a>
+		  <a class="dropdown-item" href="../informes/acontecimientos.php">Acontecimientos</a>
+		  <a class="dropdown-item" href="../informes/conductores.php">Conductores</a>
+		  <a class="dropdown-item" href="../informes/egresos.php">Egresos</a>
+		  <a class="dropdown-item" href="../informes/fechas.php">Fechas importantes</a>
+		  <a class="dropdown-item" href="../informes/ingresos.php">Ingresos</a>
+		  <a class="dropdown-item" href="../informes/rendimiento.php">Rendimiento</a>
+		  <a class="dropdown-item" href="../informes/vehiculos.php">Vehículos</a>
         </div>
       </li>
 	  <li class="nav-item dropdown">
@@ -162,11 +163,11 @@ if(isset($_SESSION['USUARIO'])){
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Respaldos</h6>
-		  <a class="dropdown-item" href="#">Copia de seguridad</a>
-		  <a class="dropdown-item" href="#">Restaurar copia</a>
+		  <a class="dropdown-item" href="../seguridad/copy.php">Copia de seguridad</a>
+		  <a class="dropdown-item" href="../seguridad/restore.php">Restaurar copia</a>
 		  <div class="dropdown-divider"></div>
-		  <h6 class="dropdown-header">Restauración</h6>
-		  <a class="dropdown-item" href="#">Restablecer información</a>
+		  <h6 class="dropdown-header">Restablecer</h6>
+		  <a class="dropdown-item" href="../seguridad/reset.php">Restablecer información</a>
         </div>
       </li>
     </ul>
@@ -175,57 +176,76 @@ if(isset($_SESSION['USUARIO'])){
 
       <div class="container-fluid">
 
-    <div id="content-wrapper">
-
-      <div class="container-fluid">
-
         <div class="card mb-3">
           <div class="card-header">
-            <i class="fas fa-table"></i>
-            Histórico</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"  style="text-align:center;">
-                <thead>
-                  <tr>
-                    <td>ID</td>
-					<td>Patente</td>
-					<td>Vehiculo</td>
-					<td>Rut conductor</td>
-                    <td>Nombre de conductor</td>
-                    <td>Fecha entrega</td>
-                    <td>Monto ($)</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php 
-				  
-			for($i=0; $i<count($lista); $i++){
-			$e = $lista[$i];
-			echo "<tr>";
-			echo "<td style='text-align:center;'>" . $e->getId(). "</td>";
-			echo "<td style='text-align:center;'>" . $e->getPatente() . "</td>";
-			echo "<td style='text-align:center;'>" . $e->getVehiculo() . "</td>";
-			echo "<td style='text-align:center;'>" . $e->getRut() . "</td>";
-			echo "<td style='text-align:center;'>" . strtoupper($e->getNombre()) . "</td>";
-			echo "<td style='text-align:center;'>" . $e->getFecha() . "</td>";
-			echo "<td style='text-align:center;'>$" . $e->getMonto(). "</td>";
-			echo "</td>";																		
-			echo "</tr>";
-		}
+            <i></i>
+            Vinculación de conductores</div>
+			
+          <div class="card-body" style="margin-left:20%;margin-right:20%;">
+        
+		<h6>Seleccion de vehículo</h6>
+			  <form  method="post" action="../../class/procesar.php"><div class="form-group">
+                <select class="form-control" name="patente">
+						<option value="0" selected disabled>Seleccione:</option>
+						<?php
+							for($i=0; $i<count($lista); $i++){
+								$v = $lista[$i];
+								echo "<option value='".$v->getPatente()."'>" . $v->getPatente()." - ".$v->getMarca()." ".$v->getModelo()."</option>";
+							}
+							if(isset($_REQUEST['patente'])){
+								echo "<option selected value='".$_REQUEST['patente']."'>" . $_REQUEST['patente']."</option>";								
+							}
+							
+						?>		
+				</select>
+              </div><h6>Datos del conductor</h6>
+			  <div class="form-group">
+                <select class="form-control" name="conductor" >
+						<option value="0" selected disabled>Seleccione:</option>
+						<?php
+							for($i=0; $i<count($lista2); $i++){
+								$c = $lista2[$i];
+								echo "<option value='".$c->getRut()."'>" . $c->getRut()."  -  ". $c->getNombre1()." ".$c->getNombre2()." ".$c->getApellido1()." ". $c->getApellido2()."</option>";
+							}
+							if(isset($_REQUEST['conductor'])){
+								echo "<option selected value='".$_REQUEST['conductor']."'>" . $_REQUEST['conductor']."</option>";								
+							}
+						?>		
+				</select>
+              </div>
+		<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
+  Guardar
+</button>
+<!-- Confirm Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Desea guardar los cambios?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Si hace clic en confirmar, la información será almacenada en la base de datos
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" name="btn_vinculacion" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Fin confirm Modal -->
+</form>
 		
-		
-				  ?>
-                </tbody></center>
-              </table>
-            </div>
-          </div>
-          <div class="card-footer small text-muted">Actualizado hoy a las <?php $time = time(); echo date("H:i", $time); ?> horas</div>
+      </div>
         </div>
       <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
-        <footer class="sticky-footer">
+      <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright © Fleetran <?php echo  date("Y");?></span>
@@ -233,7 +253,6 @@ if(isset($_SESSION['USUARIO'])){
         </div>
       </footer>
     
-    </div>
     <!-- /.content-wrapper -->
 
   </div>
@@ -257,30 +276,31 @@ if(isset($_SESSION['USUARIO'])){
         <div class="modal-body">Selecciona "Salir" si estas seguro que quieres cerrar tu sesión.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="../salir.php">Salir</a>
+          <a class="btn btn-primary" href="../../salir.php">Salir</a>
         </div>
       </div>
     </div>
   </div>
-
+  
+  
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-   <script src="../js/demo/datatables-demo.js"></script>
+  <script src="../../vendor/jquery/jquery.min.js"></script>
+  <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <script src="../../js/demo/datatables-demo.js"></script>
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Page level plugin JavaScript-->
-  <script src="../vendor/chart.js/Chart.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
+  <script src="../../vendor/chart.js/Chart.min.js"></script>
+  <script src="../../vendor/datatables/jquery.dataTables.js"></script>
+  <script src="../../vendor/datatables/dataTables.bootstrap4.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin.min.js"></script>
+  <script src="../../js/sb-admin.min.js"></script>
 
   <!-- Demo scripts for this page-->
   
-  <script src="../js/demo/chart-area-demo.js"></script>
+  <script src="../../js/demo/chart-area-demo.js"></script>
 
 </body>
 </html>

@@ -230,7 +230,7 @@ class DAO{
 
 		public function registrarEntrega($pate,$cond,$fech,$mont,$user){
 			$this->conexion();
-			$sql = "insert into entrega values (null,'$pate','$cond','$fech','$mont','$user');";
+			$sql = "insert into entrega values (null,'$pate','$cond',(STR_TO_DATE('$fech', '%d/%m/%Y')),'$mont','$user');";
 			$st = $this->mi->query($sql);
 			if($this->mi->affected_rows>0){
 				return 1;
@@ -242,7 +242,7 @@ class DAO{
 	
 		public function listarEntrega($rut){
 		$this->conexion();
-		$sql = "select id_entrega,entrega.patente_vehiculo,concat(vehiculo.marca_vehiculo,' ',modelo_vehiculo) as vehiculo,conductor.rut_conductor,concat(conductor.nombre1_conductor,' ',conductor.nombre2_conductor,' ',conductor.apellido1_conductor,' ',conductor.apellido2_conductor) as nombre,fecha_entrega,entrega.monto_entrega from entrega,conductor,vehiculo where entrega.rut_conductor=conductor.rut_conductor and entrega.rut_user='$rut' and entrega.patente_vehiculo=vehiculo.patente_vehiculo;";
+		$sql = "select id_entrega,entrega.patente_vehiculo,concat(vehiculo.marca_vehiculo,' ',modelo_vehiculo) as vehiculo,conductor.rut_conductor,concat(conductor.nombre1_conductor,' ',conductor.nombre2_conductor,' ',conductor.apellido1_conductor,' ',conductor.apellido2_conductor) as nombre,DATE_FORMAT(fecha_entrega, '%d-%m-%Y'),entrega.monto_entrega from entrega,conductor,vehiculo where entrega.rut_conductor=conductor.rut_conductor and entrega.rut_user='$rut' and entrega.patente_vehiculo=vehiculo.patente_vehiculo;";
 		$lista = array();
 		$st = $this->mi->query($sql);
 		while($rs = $st->fetch_array(MYSQLI_BOTH)){

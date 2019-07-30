@@ -61,11 +61,11 @@
 		$num = $_REQUEST['txt_num'];
 		$u = $_SESSION['USUARIO'];
 		if($d->existeConductor($rut)){
-			header('Location:../portal/registrar-conductor.php?res=0');					
+			header('Location:../portal/mantenedores/registrar-conductor.php?res=0');					
 		}else{
 			$c = new Conductor($rut,$nom1,$nom2,$ape1,$ape2,$dir,$num,null);
 			if($d->registrarConductor($c,$u)){
-				header('Location:../portal/registrar-conductor.php?res=1');					
+				header('Location:../portal/mantenedores/registrar-conductor.php?res=1');					
 			}else{
 				header('Location:../portal/registrar-conductor.php?res=22');					
 			}	
@@ -87,9 +87,9 @@
 		}else{
 			$v = new Vehiculo($pat,$tip,$mar,$mod,$col,$ano,$vin,$mot);
 			if($d->registrarVehiculo($v,$u)){
-				header('Location:../portal/nuevo-vehiculo.php?res=1');					
+				header('Location:../portal/mantenedores/nuevo-vehiculo.php?res=1');					
 			}else{
-				header('Location:../portal/nuevo-vehiculo.php?res=22');					
+				header('Location:../portal/mantenedores/nuevo-vehiculo.php?res=22');					
 			}	
 		}
 	}
@@ -102,9 +102,9 @@
 		$u = $_SESSION['USUARIO'];
 		$user = $u->getRut();
 		if($d->registrarEntrega($pate,$cond,$fech,$mont,$user)){
-				header('Location:../portal/historico.php?res=1');					
+				header('Location:../portal/mantenedores/registrar-entrega.php?res=1');					
 			}else{
-				header('Location:../portal/registrar-entrega.php?res=22');					
+				header('Location:../portal/mantenedores/registrar-entrega.php?res=22');					
 			}
 		}
 		
@@ -115,12 +115,12 @@
 	$user = $u->getRut();
 	if($d->registrarVinculacion($pate,$cond,$user)){
 			if($d->registrarVinculacion2($cond,$user)){
-				header('Location:../portal/vinculacion-conductor.php?res=1');					
+				header('Location:../portal/mantenedores/vinculacion-conductor.php?res=1');					
 			}else{
-				header('Location:../portal/vinculacion-conductor.php?res=22');					
+				header('Location:../portal/mantenedores/vinculacion-conductor.php?res=22');					
 			}
 		}else{
-			header('Location:../portal/vinculacion-conductor.php?res=22');					
+			header('Location:../portal/mantenedores/vinculacion-conductor.php?res=22');					
 		}
 	}
 	

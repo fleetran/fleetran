@@ -40,7 +40,7 @@ if(isset($_SESSION['USUARIO'])){
 	$flota = $p->getFlota();
 }			
 ?>
-    <a class="navbar-brand mr-1" href="index.html"><?php echo strtoupper($nombre);?></a>
+    <a class="navbar-brand mr-1" href="portal2.php"><?php echo strtoupper($nombre);?></a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -111,22 +111,27 @@ if(isset($_SESSION['USUARIO'])){
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Entregas</h6>
-		  <a class="dropdown-item" href="portal/registrar-entrega.php">Registrar entrega</a>
-		  <a class="dropdown-item" href="portal/modificar-entrega.php">Modificar entrega</a>
+		  <a class="dropdown-item" href="portal/mantenedores/registrar-entrega.php">Registrar entrega</a>
+		  <a class="dropdown-item" href="portal/mantenedores/modificar-entrega.php">Modificar entrega</a>
 		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Gestión de vehículos</h6>
-          <a class="dropdown-item" href="portal/nuevo-vehiculo.php">Nuevo vehículo</a>
-		  <a class="dropdown-item" href="portal/eliminar-vehiculo.php">Eliminar vehículo</a>
-          <a class="dropdown-item" href="portal/registrar-mantencion.php">Registrar mantencion</a>
+          <a class="dropdown-item" href="portal/mantenedores/nuevo-vehiculo.php">Nuevo vehículo</a>
+		  <a class="dropdown-item" href="portal/mantenedores/eliminar-vehiculo.php">Eliminar vehículo</a>
+          <a class="dropdown-item" href="portal/mantenedores/registrar-mantencion.php">Registrar mantencion</a>
+          <div class="dropdown-divider"></div>
+		  <h6 class="dropdown-header">Gestión de rendimiento</h6>
+          <a class="dropdown-item" href="portal/mantenedores/registrar-kilometraje.php">Registrar kilometraje</a>
+		  <a class="dropdown-item" href="portal/mantenedores/modificar-kilometraje.php">Modificar registro</a>
+          <a class="dropdown-item" href="portal/mantenedores/eliminar-kilometraje.php">Eliminar registro</a>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Gestión de conductores</h6>
-          <a class="dropdown-item" href="portal/registrar-conductor.php">Registrar conductor</a>
-          <a class="dropdown-item" href="portal/suspender-conductor.php">Suspender conductor</a>
-		  <a class="dropdown-item" href="portal/vinculacion-conductor.php">Vinculacion de conductor</a>
+          <a class="dropdown-item" href="portal/mantenedores/registrar-conductor.php">Registrar conductor</a>
+          <a class="dropdown-item" href="portal/mantenedores/suspender-conductor.php">Suspender conductor</a>
+		  <a class="dropdown-item" href="portal/mantenedores/vinculacion-conductor.php">Vinculacion de conductor</a>
 		  <div class="dropdown-divider"></div>
 		  <h6 class="dropdown-header">Notas</h6>
-		  <a class="dropdown-item" href="portal/acontecimiento.php">Registrar acontecimiento</a>
-		  <a class="dropdown-item" href="portal/fecha-importante.php">Registrar fecha importante</a>
+		  <a class="dropdown-item" href="portal/mantenedores/acontecimiento.php">Registrar acontecimiento</a>
+		  <a class="dropdown-item" href="portal/mantenedores/fecha-importante.php">Registrar fecha importante</a>
         </div>
       </li>
       <li class="nav-item">
@@ -134,10 +139,35 @@ if(isset($_SESSION['USUARIO'])){
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Estadísticas</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="portal/historico.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Histórico</span></a>
+	  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-file"></i>
+          <span>Reportes</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <h6 class="dropdown-header">Informes</h6>
+		  <a class="dropdown-item" href="portal/informes/acontecimientos.php">Acontecimientos</a>
+		  <a class="dropdown-item" href="portal/informes/conductores.php">Conductores</a>
+		  <a class="dropdown-item" href="portal/informes/egresos.php">Egresos</a>
+		  <a class="dropdown-item" href="portal/informes/fechas.php">Fechas importantes</a>
+		  <a class="dropdown-item" href="portal/informes/ingresos.php">Ingresos</a>
+		  <a class="dropdown-item" href="portal/informes/rendimiento.php">Rendimiento</a>
+		  <a class="dropdown-item" href="portal/informes/vehiculos.php">Vehículos</a>
+        </div>
+      </li>
+	  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-shield-alt"></i>
+          <span>Seguridad</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <h6 class="dropdown-header">Respaldos</h6>
+		  <a class="dropdown-item" href="seguridad/copy.php">Copia de seguridad</a>
+		  <a class="dropdown-item" href="seguridad/restore.php">Restaurar copia</a>
+		  <div class="dropdown-divider"></div>
+		  <h6 class="dropdown-header">Restablecer</h6>
+		  <a class="dropdown-item" href="seguridad/reset.php">Restablecer información</a>
+        </div>
       </li>
     </ul>
 
@@ -160,18 +190,18 @@ if(isset($_SESSION['USUARIO'])){
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-chart-area"></i>
-            Estadísticas</div>
+            Ingresos totales (Últimos 12 meses)</div>
           <div class="card-body">
             <canvas id="myAreaChart" width="100%" height="30"></canvas>
           </div>
-          <div class="card-footer small text-muted">Actualizado hoy a las 13:30 horas</div>
+          <div class="card-footer small text-muted">Actualizado hoy a las <?php $time = time(); echo date("H:i", $time); ?> horas</div>
         </div>
 
         <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Entregas</div>
+            Entregas recientes</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"  style="text-align:center;">
