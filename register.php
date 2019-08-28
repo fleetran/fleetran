@@ -135,31 +135,9 @@
 							<label for="country" class="cols-sm-2 control-label">Comuna</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<div id="select2lista"></div>
-									<script type="text/javascript">
-										$(document).ready(function(){
-											$('#region').val(1);
-											recargarLista();
-
-											$('#region').change(function(){
-												recargarLista();
-											});
-										})
-									</script>
-									<script type="text/javascript">
-										function recargarLista(){
-											$.ajax({
-												type:"POST",
-												url:"datos.php",
-												data:"continente=" + $('#region').val(),
-												success:function(r){
-													$('#select2lista').html(r);
-												}
-											});
-										}
-									</script>
 									
-									<!-- <span class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
+									
+									<span class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
 									<select class="form-control" name="country" id="country"  placeholder="Please select your Country">
                                     <option>Seleccione su comuna:</option>
 									<?php
@@ -170,7 +148,7 @@
 										echo '</option>';
 													}
 													?>
-									</select> -->
+									</select>
 								</div>
 							</div>
 						</div>

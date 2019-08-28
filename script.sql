@@ -471,3 +471,5 @@ INSERT INTO communes VALUES
 	(344,'Natales',16),
 	(345,'Torres del Paine',16),
 	(346,'Cabildo',6);
+    
+    
