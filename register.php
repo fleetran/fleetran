@@ -11,6 +11,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head> 
+	<script
+	src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<link rel="apple-touch-icon" sizes="57x57" href="img/icon/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="img/icon/apple-icon-60x60.png">
@@ -56,7 +60,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-suitcase" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="empresa" id="empresa" required  placeholder="Nombre de la empresa"/>
+                                    <input type="text" class="form-control" name="empresa" maxlength="15" id="empresa" required  placeholder="Nombre de la empresa"/>
 								</div>
 							</div>
 						</div>
@@ -66,7 +70,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="empresa" id="empresa" required  placeholder="Rut del administrador"/>
+                                    <input type="text" class="form-control" maxlength="10" oninput="checkRut(this)" name="txt_rut" id="txt_rut" required  placeholder="Rut del administrador"/>
 								</div>
 							</div>
 						</div>
@@ -76,7 +80,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="empresa" id="empresa" required  placeholder="Nombres del administrador"/>
+                                    <input type="text" class="form-control" name="empresa" maxlength="20" id="empresa" required  placeholder="Nombres del administrador"/>
 								</div>
 							</div>
 						</div>
@@ -86,7 +90,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="empresa" id="empresa" required  placeholder="Apellidos del administrador"/>
+                                    <input type="text" class="form-control" name="empresa" maxlength="20" id="empresa" required  placeholder="Apellidos del administrador"/>
 								</div>
 							</div>
 						</div>
@@ -116,15 +120,13 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-globe fa-lg" aria-hidden="true"></i></span>
-									<select class="form-control" name="region" id="region" required  placeholder="Please select your Nationality">
-                                    <option>Seleccione su región:</option>
+									<select class="form-control" name="lista1" id="lista1" required  placeholder="Please select your Nationality">
+                                    <option selected>Seleccione su región:</option>
                                     <?php
 									for($i=0; $i<count($reg); $i++){
 										$e = $reg[$i];
-										echo '<option id="'.$e->getId().'">';
-										echo $e->getNom();
-										echo '</option>';
-													}
+										echo '<option value="'.$e->getId().'">'.$e->getNom().'</option>';
+									}
 													?>
 									</select>
 								</div>
@@ -135,20 +137,9 @@
 							<label for="country" class="cols-sm-2 control-label">Comuna</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									
-									
+																
 									<span class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
-									<select class="form-control" name="country" id="country"  placeholder="Please select your Country">
-                                    <option>Seleccione su comuna:</option>
-									<?php
-									for($i=0; $i<count($com); $i++){
-										$e = $com[$i];
-										echo '<option id="'.$e->getId().'">';
-										echo $e->getNom();
-										echo '</option>';
-													}
-													?>
-									</select>
+									<div id="select2lista"></div>
 								</div>
 							</div>
 						</div>
@@ -164,3 +155,26 @@
 		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
 	</body>
 </html>
+<script src="js/rut.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#lista1').val(1);
+		recargarLista();
+
+		$('#lista1').change(function(){
+			recargarLista();
+		});
+	})
+</script>
+<script type="text/javascript">
+	function recargarLista(){
+		$.ajax({
+			type:"POST",
+			url:"class/datos.php",
+			data:"continente=" + $('#lista1').val(),
+			success:function(r){
+				$('#select2lista').html(r);
+			}
+		});
+	}
+</script>

@@ -473,3 +473,4 @@ INSERT INTO communes VALUES
 	(346,'Cabildo',6);
     
     
+select * from communes where region_id=5 order by name asc;
