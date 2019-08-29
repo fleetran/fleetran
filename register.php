@@ -120,14 +120,15 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-globe fa-lg" aria-hidden="true"></i></span>
-									<select class="form-control" name="lista1" id="lista1" required  placeholder="Please select your Nationality">
-                                    <option selected>Seleccione su región:</option>
+									<select class="form-control" name="region" id="region" required>
+									<option disabled>Seleccione su región:</option>
                                     <?php
 									for($i=0; $i<count($reg); $i++){
 										$e = $reg[$i];
 										echo '<option value="'.$e->getId().'">'.$e->getNom().'</option>';
 									}
 													?>
+													
 									</select>
 								</div>
 							</div>
@@ -137,9 +138,8 @@
 							<label for="country" class="cols-sm-2 control-label">Comuna</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-																
 									<span class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
-									<div id="select2lista"></div>
+									<div id="comuna"></div>
 								</div>
 							</div>
 						</div>
@@ -158,10 +158,10 @@
 <script src="js/rut.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#lista1').val(1);
+		$('#region').val(1);
 		recargarLista();
 
-		$('#lista1').change(function(){
+		$('#region').change(function(){
 			recargarLista();
 		});
 	})
@@ -170,10 +170,10 @@
 	function recargarLista(){
 		$.ajax({
 			type:"POST",
-			url:"class/datos.php",
-			data:"continente=" + $('#lista1').val(),
+			url:"class/comunas.php",
+			data:"region=" + $('#region').val(),
 			success:function(r){
-				$('#select2lista').html(r);
+				$('#comuna').html(r);
 			}
 		});
 	}
