@@ -2,22 +2,34 @@
 	require('dao.php');
 	require('dao-adm.php');
 	session_start();
+	$sesion = $_SESSION['CREDENCIAL'];
 	$d = new DAO();
 	$d2 = new DAO2();
 	
-	if(isset($_REQUEST['btn_new_car'])){
-		$rut = $_REQUEST['txt_rut'];
-		$nombre = $_REQUEST['txt_nom'];
-		$apellido = $_REQUEST['txt_ape'];
+	if(isset($_REQUEST['btn_new_driver'])){
+		$rut = $_REQUEST['rut'];
+		$nombre = $_REQUEST['nombres'];
+		$apellido = $_REQUEST['apellidos'];
 		$fecha = $_REQUEST['fec_nac'];
-		$region = $_REQUEST['cbo_region'];
-		$comuna = $_REQUEST['cbo_comuna'];
+		$region = $_REQUEST['region'];
+		$comuna = $_REQUEST['comuna'];
+		$direccion = $_REQUEST['direccion'];
+		echo $fecha;
 		$split = explode(".", $_REQUEST['carnet-imagen']);
 		$carnet = $split[0].'.'.$split[1].'.'.$split[2].'l.'.$split[3];
 		$split = explode(".", $_REQUEST['licencia-imagen']);
 		$licencia = $split[0].'.'.$split[1].'.'.$split[2].'l.'.$split[3];
-		
-		
+		$vehiculo = $_REQUEST['vehiculo'];
+		if($d->existeConductor($rut)==0){
+			$c = new Conductor($rut,$nombre,$apellido,$fecha,$region,$comuna,$direccion,$carnet,$licencia);
+			if($d->registrarConductor($c,1)){
+				header('Location:../nuevo-conductor.php?reg=1');	
+			}else{
+				header('Location:../nuevo-conductor.php?reg=0');	
+			}
+		}else{
+			header('Location:../nuevo-conductor.php?existe=1');	
+		}
 	}
 	
 	if(isset($_REQUEST['btn_ing'])){

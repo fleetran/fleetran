@@ -89,13 +89,16 @@ Fleetran Software
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<?php echo "<a class='navbar-brand' href='".$Page."'>".strtoupper($Tittle)."</a>";?>
+<?php 
+$tit = $d->menu_getTitulo(basename($_SERVER['PHP_SELF']));
+$get = $tit[0];
+echo "<a class='navbar-brand' href='".$Page."'>".strtoupper(utf8_encode($get->getNom()))."</a>";?>
 </div>
 <div class="collapse navbar-collapse">
 <ul class="nav navbar-nav navbar-left">
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-<i class="fa fa-arrow-down" aria-hidden="true"></i>
+<i class="fas fa-caret-down"></i>
 <b class="caret hidden-lg hidden-md"></b>
 <p class="hidden-lg hidden-md">
 
@@ -142,11 +145,6 @@ Fleetran Software
             </div>
         </nav>
 <!-- contenido -->
-
-       
-
-
-       
 
     </div>
 </div>

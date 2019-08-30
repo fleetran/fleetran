@@ -2,6 +2,7 @@
 
 require('Cuenta.php'); 
 require('menu.php');
+require('Vehiculo.php');
 require('listaEmpresa.php');
 
 class DAO{
@@ -23,6 +24,38 @@ class DAO{
 	public function menu_dinamico(){
 		$this->conexion();
 		$sql = "select nombre,url,icono from menu_dinamico where TIPO='0';";
+		$lista = array();
+		$st = $this->mi->query($sql);
+		while($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$nom = $rs[0];
+			$url = $rs[1]; 
+			$ico = $rs[2]; 
+			$M = new Menu($nom,$url,$ico);
+			$lista[] = $M;
+		}
+		$this->desconexion();
+		return $lista;
+	}
+	
+	public function menu_conductores(){
+		$this->conexion();
+		$sql = "select nombre,url,icono from menu_dinamico where TIPO='3';";
+		$lista = array();
+		$st = $this->mi->query($sql);
+		while($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$nom = $rs[0];
+			$url = $rs[1]; 
+			$ico = $rs[2]; 
+			$M = new Menu($nom,$url,$ico);
+			$lista[] = $M;
+		}
+		$this->desconexion();
+		return $lista;
+	}
+
+public function menu_getTitulo($url){
+		$this->conexion();
+		$sql = "select nombre,url,icono from menu_dinamico where Url='$url';";
 		$lista = array();
 		$st = $this->mi->query($sql);
 		while($rs = $st->fetch_array(MYSQLI_BOTH)){
@@ -108,10 +141,64 @@ class DAO{
 			}	
 		$this->desconexion();
 		return $lista;
+	}
 	
+	public function vehiculosnoAsignados($id){
+		$this->conexion();
+		$sql = "select patente,marca,modelo,color,ano,kms,transmision,combustible,tipo.des,rut_conductor,empresa from vehiculo, tipo where empresa='$id' and rut_conductor='';";
+		$lista = array();
+		$st = $this->mi->query($sql);
+		while($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$patente = $rs[0]; 
+			$marca = $rs[1];
+			$modelo = $rs[2];			
+			$color = $rs[3]; 
+			$ano = $rs[4]; 
+			$kms = $rs[5]; 
+			$transmision = $rs[6]; 
+			$combustible = $rs[7]; 
+			$tipo = $rs[8]; 
+			$cond = $rs[9]; 
+			$empresa = $rs[10]; 
+			$Vehiculo = new Vehiculo($patente,$marca,$modelo,$color,$ano,$kms,$transmision,$combustible,$tipo,$cond,$empresa);
+			$lista[] = $Vehiculo;					
+			}	
+		$this->desconexion();
+		return $lista;
+	}	
+	public function existeConductor($rut){
+			$this->conexion();
+		$sql = "select * from conductor where rut_conductor='$rut'";
+		$st = $this->mi->query($sql);
+		if($rs = $st->fetch_array(MYSQLI_BOTH)){
+			return 1;
+		}else{
+			$this->desconexion();
+			return 0;
+		}
+	}
 	
-		
-
-}}
+	public function registrarConductor($c,$u){
+			$this->conexion();
+			$rut = $c->getRut();
+			$nom = $c->getNombre();
+			$ape = $c->getApellido();
+			$fec = $c->getFec_nac();
+			$reg = $c->getRegion();
+			$com = $c->getComuna();
+			$dir = $c->getDireccion();
+			$car = $c->getCarnet();
+			$lic = $c->getLicencia();
+			$sql = "insert into conductor values ('$rut','$nom','$ape','2019/04/04','$reg','$com','$dir','$car','$lic','','$u');";
+			$st = $this->mi->query($sql);
+			if($this->mi->affected_rows>0){
+				return 1;
+			}else{
+				return 0;
+			}
+			$this->desconexion();
+	}
+	
+	}
 
 ?>

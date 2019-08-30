@@ -76,7 +76,7 @@
 
                 p1 = this.createEls('p', {}, 'Drop Image File Here');
                 p2 = this.createEls('p', {}, 'Or click here to select image');
-            input = this.createEls('input', {type: 'file', className: 'input',  accept: 'image/x-png, image/jpeg'});
+            input = this.createEls('input', {type: 'file',required:' ', className: 'input', accept: 'image/x-png, image/jpeg',title:'Por favor adjunta fotocopia de carnet'});
 
             Array.prototype.forEach.call(this.info, function (zone) {
                 zone.appendChild(p1);
