@@ -3,6 +3,7 @@
 require('Cuenta.php'); 
 require('menu.php');
 require('Vehiculo.php');
+require('Conductor.php');
 require('listaEmpresa.php');
 
 class DAO{
@@ -168,7 +169,7 @@ public function menu_getTitulo($url){
 	}	
 	public function existeConductor($rut){
 			$this->conexion();
-		$sql = "select * from conductor where rut_conductor='$rut'";
+		$sql = "select * from conductor where rut='$rut'";
 		$st = $this->mi->query($sql);
 		if($rs = $st->fetch_array(MYSQLI_BOTH)){
 			return 1;
@@ -189,7 +190,8 @@ public function menu_getTitulo($url){
 			$dir = $c->getDireccion();
 			$car = $c->getCarnet();
 			$lic = $c->getLicencia();
-			$sql = "insert into conductor values ('$rut','$nom','$ape','2019/04/04','$reg','$com','$dir','$car','$lic','','$u');";
+			$fec_reg = $c->getFecha_reg();
+			$sql = "insert into conductor values ('$rut','$nom','$ape','$fec','$reg','$com','$dir','$car','$lic','$fec_reg','1','$u');";
 			$st = $this->mi->query($sql);
 			if($this->mi->affected_rows>0){
 				return 1;
@@ -199,6 +201,17 @@ public function menu_getTitulo($url){
 			$this->desconexion();
 	}
 	
+	public function registrarVinculacion($pate,$cond,$user){
+			$this->conexion();
+			$sql = "update vehiculo set rut_conductor ='$cond' where empresa='$user' and patente='$pate';";
+			$st = $this->mi->query($sql);
+			if($this->mi->affected_rows>0){
+				return 1;
+			}else{
+				return 0;
+			}
+			$this->desconexion();
 	}
+}
 
 ?>

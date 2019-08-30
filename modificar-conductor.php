@@ -42,13 +42,18 @@
 <div class="wrapper">
 <?php
 	require('class/dao.php');
+	require('class/dao-adm.php');
+	$d2 = new DAO2();
+	$reg = $d2->listarRegiones();
 	session_start();
 	$d = new DAO();
+	
 	if(!isset($_SESSION['CREDENCIAL'])){
 		header("location:index.php");	
 	}else{
 		$u = $_SESSION['CREDENCIAL'];
 		$color = $u->getCol();
+		$veh = $d->vehiculosnoAsignados($u->getID_emp());
 	}
 ?>
 <div class="sidebar" data-color="<?php echo $color;?>" data-image="assets/img/sidebar-5.jpg">
@@ -98,7 +103,7 @@ echo "<a class='navbar-brand' href='".$Page."'>".strtoupper(utf8_encode($get->ge
 <ul class="nav navbar-nav navbar-left">
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-<i class="fas fa-caret-down"></i>
+<i class="fa fa-arrow-down" aria-hidden="true"></i>
 <b class="caret hidden-lg hidden-md"></b>
 <p class="hidden-lg hidden-md">
 
@@ -146,6 +151,8 @@ echo "<a class='navbar-brand' href='".$Page."'>".strtoupper(utf8_encode($get->ge
         </nav>
 <!-- contenido -->
 
+       
+		
     </div>
 </div>
 
@@ -156,7 +163,10 @@ echo "<a class='navbar-brand' href='".$Page."'>".strtoupper(utf8_encode($get->ge
 	<script src="js/rut.js"></script>
     <script src="assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-
+	<script type="text/javascript" src="./js/imgur.js"></script>
+	<script type="text/javascript" src="./js/upload.js"></script>
+	<script type="text/javascript" src="./js/imgur2.js"></script>
+	<script type="text/javascript" src="./js/upload2.js"></script>
 	<!--  Charts Plugin -->
 	<script src="assets/js/chartist.min.js"></script>
 

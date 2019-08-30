@@ -1,67 +1,3 @@
-create database fleet;
-use fleet;
-
-CREATE TABLE menu_dinamico (
-ID int auto_increment primary key,
-NOMBRE varchar(30),
-URL varchar(50),
-ICONO varchar(50),
-TIPO int(1)
-);
-
-CREATE TABLE plan (
-PLAN int auto_increment primary key,
-MONTO int(10) NOT NULL,
-C_VEH int(3) NOT NULL,
-C_ADM int(1) NOT NULL,
-DESCR varchar(20) NOT NULL
-);
-
-CREATE TABLE empresa (
-EMPRESA int auto_increment primary key,
-PLAN int NOT NULL,
-LOGO varchar(40) NOT NULL,
-NOMBRE varchar(50) DEFAULT NULL,
-F_REG date NOT NULL,
-F_VEN date NOT NULL,
-foreign key empresa(PLAN) references plan(PLAN)
-);
-
-CREATE TABLE alertas (
-ID int auto_increment primary key,
-TITULO varchar(20),
-MENSAJE varchar(100),
-PERMISO int(1),
-EMPRESA int,
-foreign key alertas(EMPRESA) references empresa(EMPRESA)
-);
-
-CREATE TABLE usuarios (
-RUT varchar(10) primary key,
-PWD varchar(32),
-EMAIL varchar(50),
-COLOR varchar(10),
-NOMBRE varchar(20),
-APELLIDO varchar(20),
-CARGO varchar(20),
-PERMISO int,
-EMPRESA int,
-foreign key usuarios(EMPRESA) references empresa(EMPRESA)
-);
-
-INSERT INTO menu_dinamico VALUES (null,'Menu principal','dashboard.php','pe-7s-home',0);
-INSERT INTO menu_dinamico VALUES (null,'Estadisticas','estadisticas.php','pe-7s-graph1',0);
-INSERT INTO menu_dinamico VALUES (null,'Menu Principal','admin.php','pe-7s-home',1);
-INSERT INTO menu_dinamico VALUES (null,'Monitoreo','monitor.php','pe-7s-look',1);
-INSERT INTO menu_dinamico VALUES (null,'Ver usuarios','users.php','pe-7s-users',1);
-INSERT INTO menu_dinamico VALUES (null,'Agregar un conductor','nuevo-conductor.php','pe-7s-add-user',0);
-INSERT INTO plan VALUES(null,60000,50,2,'PLAN A');
-INSERT INTO plan VALUES(null,70000,100,2,'PLAN B');
-INSERT INTO empresa VALUES(null,1,'','RIVAS','2019-01-01','2020-01-01');
-INSERT INTO empresa VALUES(null,2,'','URZUA','2019-08-01','2019-08-06');
-INSERT INTO usuarios VALUES('19359505-7','e10adc3949ba59abbe56e057f20f883e','matias@inacap.cl','orange','Matias','Rivas','Gerente General',0,1);
-INSERT INTO usuarios VALUES('19359735-1','e10adc3949ba59abbe56e057f20f883e','alvaro@inacap.cl','000000','Alvaro','Urzua','Administrador',0,2);
-
 create database fleet_adm;
 use fleet_adm;
 
@@ -472,5 +408,110 @@ INSERT INTO communes VALUES
 	(345,'Torres del Paine',16),
 	(346,'Cabildo',6);
     
-    
-select * from communes where region_id=5 order by name asc;
+    create database fleet;
+use fleet;
+
+CREATE TABLE menu_dinamico (
+ID int auto_increment primary key,
+NOMBRE varchar(30),
+URL varchar(50),
+ICONO varchar(50),
+TIPO int(1)
+);
+
+CREATE TABLE plan (
+PLAN int auto_increment primary key,
+MONTO int(10) NOT NULL,
+C_VEH int(3) NOT NULL,
+C_ADM int(1) NOT NULL,
+DESCR varchar(20) NOT NULL
+);
+
+CREATE TABLE empresa (
+EMPRESA int auto_increment primary key,
+PLAN int NOT NULL,
+LOGO varchar(40) NOT NULL,
+NOMBRE varchar(50) DEFAULT NULL,
+F_REG date NOT NULL,
+F_VEN date NOT NULL,
+foreign key empresa(PLAN) references plan(PLAN)
+);
+
+CREATE TABLE alertas (
+ID int auto_increment primary key,
+TITULO varchar(20),
+MENSAJE varchar(100),
+PERMISO int(1),
+EMPRESA int,
+foreign key alertas(EMPRESA) references empresa(EMPRESA)
+);
+
+CREATE TABLE usuarios (
+RUT varchar(10) primary key,
+PWD varchar(32),
+EMAIL varchar(50),
+COLOR varchar(10),
+NOMBRE varchar(20),
+APELLIDO varchar(20),
+CARGO varchar(20),
+PERMISO int,
+EMPRESA int,
+foreign key usuarios(EMPRESA) references empresa(EMPRESA)
+);
+
+CREATE TABLE tipo(
+id int auto_increment primary key,
+des varchar(20)
+);
+
+CREATE TABLE vehiculo (
+patente varchar(12) primary key NOT NULL,
+marca varchar(30),
+modelo varchar(30),
+color varchar(30),
+ano varchar(50),
+kms int(7),
+transmision varchar(10),
+combustible varchar(10),
+tipo int,
+rut_conductor varchar(10),
+empresa int not null,
+foreign key vehiculo_e(EMPRESA) references empresa(EMPRESA),
+foreign key vehiculo_t(tipo) references Tipo(id)
+);
+
+create table conductor(
+rut varchar(10) primary key,
+nombres varchar(25) not null,
+apellidos varchar(25) not null,
+fec_nac date not null,
+region int(10),
+comuna int(10),
+direccion varchar(40),
+url_carnet varchar(50),
+url_licencia varchar(50),
+estado int(1),
+empresa int,
+foreign key conductor1(region) references fleet_adm.regions(id),
+foreign key conductor2(comuna) references fleet_adm.communes(id),
+foreign key conductor3(empresa) references empresa(EMPRESA)
+);
+
+INSERT INTO menu_dinamico VALUES
+		(1, 'Menu principal', 'dashboard.php', 'pe-7s-home', 0),
+		(2, 'Estadisticas', 'estadisticas.php', 'pe-7s-graph1', 0),
+		(3, 'Menu Principal', 'admin.php', 'pe-7s-home', 1),
+		(4, 'Monitoreo', 'monitor.php', 'pe-7s-look', 1),
+		(5, 'Ver usuarios', 'users.php', 'pe-7s-users', 1),
+		(6, 'Conductores', 'conductores.php', 'pe-7s-user', 0),
+		(7, 'Principal', 'conductores.php', NULL, 3),
+		(8, 'Agregar Conductor', 'nuevo-conductor.php', NULL, 3),
+		(9, 'Modificar Conductor', 'modificar-conductor.php', NULL, 3);
+
+INSERT INTO plan VALUES(null,60000,50,2,'PLAN A');
+INSERT INTO plan VALUES(null,70000,100,2,'PLAN B');
+INSERT INTO empresa VALUES(null,1,'','RIVAS','2019-01-01','2020-01-01');
+INSERT INTO empresa VALUES(null,2,'','URZUA','2019-08-01','2019-08-06');
+INSERT INTO usuarios VALUES('19359505-7','e10adc3949ba59abbe56e057f20f883e','matias@inacap.cl','orange','Matias','Rivas','Gerente General',0,1);
+INSERT INTO usuarios VALUES('19359735-1','e10adc3949ba59abbe56e057f20f883e','alvaro@inacap.cl','000000','Alvaro','Urzua','Administrador',0,2);
+INSERT INTO tipo VALUES(null,'Colectivo');

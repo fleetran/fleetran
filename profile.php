@@ -17,6 +17,7 @@
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 <!-- Favicon -->
+
 <link rel="apple-touch-icon" sizes="57x57" href="img/icon/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="img/icon/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="img/icon/apple-icon-72x72.png">
@@ -37,7 +38,19 @@
 </head>
 <body>
 <div class="wrapper">
-<div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
+<?php
+require('class/dao.php');
+	session_start();
+	$d = new DAO();
+	if(!isset($_SESSION['CREDENCIAL'])){
+		header("location:index.php");	
+	}else{
+		$u = $_SESSION['CREDENCIAL'];
+		$color = $u->getCol();
+	}
+
+?>
+<div class="sidebar" data-color="<?php echo $color;?>" data-image="assets/img/sidebar-5.jpg">
 
 <div class="sidebar-wrapper">
 <div class="logo">
@@ -49,19 +62,8 @@ Fleetran Software
 </div>
 <ul class="nav">
 <?php
-	
-	require('class/dao.php');
-	session_start();
-	$d = new DAO();
-	if(!isset($_SESSION['CREDENCIAL'])){
-		header("location:index.php");	
-	}else{
-		$u = $_SESSION['CREDENCIAL'];
-	}
-	
-	
 	$Page = basename($_SERVER['PHP_SELF']);
-	$Tittle = "Mi Perfil";
+	$Tittle = "";
 	
 	
 	
@@ -90,7 +92,7 @@ Fleetran Software
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<?php echo "<a class='navbar-brand' href='".$Page."'>".strtoupper($Tittle)."</a>";?>
+<?php echo "<a class='navbar-brand' href='".$Page."'>MI PERFIL</a>";?>
 </div>
 <div class="collapse navbar-collapse">
 <ul class="nav navbar-nav navbar-left">

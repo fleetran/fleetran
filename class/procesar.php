@@ -14,16 +14,20 @@
 		$region = $_REQUEST['region'];
 		$comuna = $_REQUEST['comuna'];
 		$direccion = $_REQUEST['direccion'];
-		echo $fecha;
+		$fecha = date('Y-m-d');
 		$split = explode(".", $_REQUEST['carnet-imagen']);
 		$carnet = $split[0].'.'.$split[1].'.'.$split[2].'l.'.$split[3];
 		$split = explode(".", $_REQUEST['licencia-imagen']);
 		$licencia = $split[0].'.'.$split[1].'.'.$split[2].'l.'.$split[3];
 		$vehiculo = $_REQUEST['vehiculo'];
 		if($d->existeConductor($rut)==0){
-			$c = new Conductor($rut,$nombre,$apellido,$fecha,$region,$comuna,$direccion,$carnet,$licencia);
-			if($d->registrarConductor($c,1)){
-				header('Location:../nuevo-conductor.php?reg=1');	
+			$c = new Conductor($rut,$nombre,$apellido,$fecha,$region,$comuna,$direccion,$carnet,$licencia,$fecha);
+			if($d->registrarConductor($c,$sesion->getId_Emp())){
+				if($d->registrarVinculacion($vehiculo,$rut,$sesion->getId_Emp())==1){
+					header('Location:../nuevo-conductor.php?reg=1');	
+				}else{
+					header('Location:../nuevo-conductor.php?reg=0');	
+				}
 			}else{
 				header('Location:../nuevo-conductor.php?reg=0');	
 			}
