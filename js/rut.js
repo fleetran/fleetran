@@ -9,7 +9,7 @@
     dv = valor.slice(-1).toUpperCase();
     
     
-    txt_rut.value = cuerpo + '-'+ dv
+    rut.value = cuerpo + '-'+ dv
     
     
     if(cuerpo.length < 7) {  return false;}
@@ -29,5 +29,5 @@
     dv = (dv == 0)?11:dv;
     if(dvEsperado != dv) { return false; }
     
-    txt_rut.setCustomValidity('');
+    rut.setCustomValidity('');
 }
