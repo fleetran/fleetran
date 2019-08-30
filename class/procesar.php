@@ -26,10 +26,37 @@
 				if($d->registrarVinculacion($vehiculo,$rut,$sesion->getId_Emp())==1){
 					header('Location:../nuevo-conductor.php?reg=1');	
 				}else{
-					header('Location:../nuevo-conductor.php?reg=0');	
+					header('Location:../nuevo-conductor.php?reg=2');	
 				}
 			}else{
 				header('Location:../nuevo-conductor.php?reg=0');	
+			}
+		}else{
+			header('Location:../nuevo-conductor.php?existe=1');	
+		}
+			
+	}
+	
+	if(isset($_REQUEST['btn_new_car'])){
+		$patente = $_REQUEST['patente'];
+		$marca = $_REQUEST['marca'];
+		$modelo = $_REQUEST['modelo'];
+		$tipo = $_REQUEST['tipo'];
+		$color = $_REQUEST['color'];
+		$kilometraje = $_REQUEST['kilometraje'];
+		$ano = $_REQUEST['ano'];
+		$region = $_REQUEST['region'];
+		$comuna = $_REQUEST['comuna'];
+		$transmision = $_REQUEST['Transmision'];
+		$combustible = $_REQUEST['Combustible'];
+		$fecha = date('Y-m-d');
+		$empresa = $sesion->getId_Emp();
+		if($d->existeVehiculo($patente)==0){
+			$v = new Vehiculo($patente,$marca,$modelo,$tipo,$color,$kilometraje,$ano,$region,$comuna,$transmision,$combustible,$fecha,'0',$empresa);
+			if($d->registrarVehiculo($v)){
+					header('Location:../nuevo-vehiculo.php?reg=1');	
+			}else{
+				header('Location:../nuevo-vehiculo.php?reg=0');	
 			}
 		}else{
 			header('Location:../nuevo-conductor.php?existe=1');	

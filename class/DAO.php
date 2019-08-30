@@ -3,6 +3,7 @@
 require('Cuenta.php'); 
 require('menu.php');
 require('Vehiculo.php');
+require('Tipo.php');
 require('Conductor.php');
 require('listaEmpresa.php');
 
@@ -53,6 +54,21 @@ class DAO{
 		$this->desconexion();
 		return $lista;
 	}
+	public function menu_vehiculos(){
+		$this->conexion();
+		$sql = "select nombre,url,icono from menu_dinamico where TIPO='4';";
+		$lista = array();
+		$st = $this->mi->query($sql);
+		while($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$nom = $rs[0];
+			$url = $rs[1]; 
+			$ico = $rs[2]; 
+			$M = new Menu($nom,$url,$ico);
+			$lista[] = $M;
+		}
+		$this->desconexion();
+		return $lista;
+	}
 
 public function menu_getTitulo($url){
 		$this->conexion();
@@ -85,7 +101,20 @@ public function menu_getTitulo($url){
 		$this->desconexion();
 		return $lista;
 	}
-	
+	public function listarTipo(){
+		$this->conexion();
+		$sql = "select * from tipo;";
+		$lista = array();
+		$st = $this->mi->query($sql);
+		while($rs = $st->fetch_array(MYSQLI_BOTH)){
+			$id = $rs[0];
+			$nom = $rs[1]; 
+			$t = new Tipo($id,$nom);
+			$lista[] = $t;
+		}
+		$this->desconexion();
+		return $lista;
+	}
 	public function comprobarUsuario($EMAIL,$PWD){
 		$this->conexion();
 		$sql = "SELECT USUARIOS.RUT,USUARIOS.EMAIL,USUARIOS.COLOR,USUARIOS.NOMBRE,USUARIOS.APELLIDO,USUARIOS.CARGO,USUARIOS.PERMISO,EMPRESA.EMPRESA,EMPRESA.NOMBRE,EMPRESA.LOGO,EMPRESA.F_REG,EMPRESA.F_VEN FROM USUARIOS,EMPRESA WHERE USUARIOS.EMAIL='".$EMAIL."' AND USUARIOS.PWD='".$PWD."' AND USUARIOS.EMPRESA=EMPRESA.EMPRESA;";
@@ -146,7 +175,7 @@ public function menu_getTitulo($url){
 	
 	public function vehiculosnoAsignados($id){
 		$this->conexion();
-		$sql = "select patente,marca,modelo,color,ano,kms,transmision,combustible,tipo.des,rut_conductor,empresa from vehiculo, tipo where empresa='$id' and rut_conductor='';";
+		$sql = "select patente,marca,modelo,color,ano,kms,transmision,combustible,tipo.des,rut_conductor,empresa from vehiculo, tipo where empresa='$id' and rut_conductor=0;";
 		$lista = array();
 		$st = $this->mi->query($sql);
 		while($rs = $st->fetch_array(MYSQLI_BOTH)){
@@ -161,7 +190,7 @@ public function menu_getTitulo($url){
 			$tipo = $rs[8]; 
 			$cond = $rs[9]; 
 			$empresa = $rs[10]; 
-			$Vehiculo = new Vehiculo($patente,$marca,$modelo,$color,$ano,$kms,$transmision,$combustible,$tipo,$cond,$empresa);
+			$Vehiculo = new Vehiculo($patente,$marca,$modelo,$color,$ano,'','',$kms,$transmision,$combustible,$tipo,'',$cond,$empresa);
 			$lista[] = $Vehiculo;					
 			}	
 		$this->desconexion();
@@ -178,7 +207,17 @@ public function menu_getTitulo($url){
 			return 0;
 		}
 	}
-	
+	public function existeVehiculo($patente){
+			$this->conexion();
+		$sql = "select * from vehiculo where patente='$patente'";
+		$st = $this->mi->query($sql);
+		if($rs = $st->fetch_array(MYSQLI_BOTH)){
+			return 1;
+		}else{
+			$this->desconexion();
+			return 0;
+		}
+	}
 	public function registrarConductor($c,$u){
 			$this->conexion();
 			$rut = $c->getRut();
@@ -192,6 +231,31 @@ public function menu_getTitulo($url){
 			$lic = $c->getLicencia();
 			$fec_reg = $c->getFecha_reg();
 			$sql = "insert into conductor values ('$rut','$nom','$ape','$fec','$reg','$com','$dir','$car','$lic','$fec_reg','1','$u');";
+			$st = $this->mi->query($sql);
+			if($this->mi->affected_rows>0){
+				return 1;
+			}else{
+				return 0;
+			}
+			$this->desconexion();
+	}
+	
+	public function registrarVehiculo($v){
+			$this->conexion();			
+			$Patente = $v->getPatente();
+			$Marca = $v->getMarca();
+			$Modelo = $v->getModelo();
+			$Color = $v->getColor();
+			$Ano = $v->getAno();
+			$Region = $v->getRegion();
+			$Comuna = $v->getComuna();
+			$Kms = $v->getKms();
+			$Transmision = $v->getTransmision();
+			$Combustible = $v->getCombustible();
+			$Tipo = $v->getTipo();
+			$Fecha = $v->getFecha();
+			$empresa = $v->getEmpresa();
+			$sql = "insert into vehiculo values ('$Patente','$Marca','$Modelo','$Color','$Ano','$Region','$Comuna','$Kms','$Transmision','$Combustible','$Tipo','$Fecha','0','$empresa');";
 			$st = $this->mi->query($sql);
 			if($this->mi->affected_rows>0){
 				return 1;
